@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a2f5c"/>
+      <stop offset="1" stop-color="#140f2b"/>
+    </linearGradient>
+    <linearGradient id="gold" gradientUnits="userSpaceOnUse" x1="0" y1="220" x2="0" y2="870">
+      <stop offset="0" stop-color="#ffe08a"/>
+      <stop offset="1" stop-color="#ff9b3d"/>
+    </linearGradient>
+  </defs>
+  <!-- macOS icon grid: 824×824 body, 100 px margin -->
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)"/>
+  <g transform="translate(0 -22)">
+  <g fill="none" stroke="url(#gold)" stroke-linecap="round">
+    <!-- vibration arcs -->
+    <path d="M362 268 Q326 340 362 412" stroke-width="22" opacity=".75"/>
+    <path d="M300 232 Q246 340 300 448" stroke-width="22" opacity=".4"/>
+    <path d="M718 268 Q754 340 718 412" stroke-width="22" opacity=".75"/>
+    <path d="M780 232 Q834 340 780 448" stroke-width="22" opacity=".4"/>
+    <!-- tuning fork prongs -->
+    <path d="M450 236 V414 A90 90 0 0 0 630 414 V236" stroke-width="46"/>
+    <!-- stem -->
+    <path d="M540 504 V770" stroke-width="46" stroke-linecap="butt"/>
+  </g>
+  <!-- crotchet head -->
+  <ellipse cx="478" cy="782" rx="108" ry="80" transform="rotate(-24 478 782)" fill="url(#gold)"/>
+  </g>
+</svg>

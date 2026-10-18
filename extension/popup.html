@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <label class="switch">
+      <input type="checkbox" id="enabled">
+      <span class="track"></span>
+      <span class="title">Pitch shift</span>
+    </label>
+  </header>
+  <p id="status" class="status"></p>
+  <button id="move" class="move" hidden>Shift this tab instead</button>
+
+  <section>
+    <div class="row"><span>Semitones</span><output id="semitones-value"></output></div>
+    <input type="range" id="semitones" min="-12" max="12" step="1">
+    <div class="row"><span>Fine tune</span><output id="cents-value"></output></div>
+    <input type="range" id="cents" min="-50" max="50" step="1">
+    <p class="hint">Tempo stays the same. Works on one tab at a time.</p>
+  </section>
+
+  <footer><button id="reset">Reset</button></footer>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
