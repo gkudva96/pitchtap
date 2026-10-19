@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PitchTap",
   "version": "0.2.0",
-  "description": "Change the pitch of any tab's audio in semitones and cents, without changing its speed.",
+  "description": "Change the key of any song in a Chrome tab. Same tempo. Shift live in semitones and cents.",
   "minimum_chrome_version": "116",
   "permissions": ["activeTab", "tabCapture", "offscreen", "storage"],
   "background": { "service_worker": "background.js", "type": "module" },
