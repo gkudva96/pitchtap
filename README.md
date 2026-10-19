@@ -173,6 +173,7 @@ pitchtap/
 ├── mac/         PitchTap menu-bar app (Swift, SwiftPM; no Xcode project needed)
 ├── extension/   Chrome MV3 extension
 ├── design/      Logo sources and the icon build script
+├── store/       Chrome Web Store package, screenshots and privacy policy (listing text: CHROMEWEBSTORE.md)
 └── docs/        Images used in this README
 ```
 
@@ -182,6 +183,7 @@ pitchtap/
 | Offline DSP self-test | `mac/PitchTap.app/Contents/MacOS/PitchTap --selftest` |
 | Live capture probe | `open -W mac/PitchTap.app --args --probe 8 /tmp/probe.txt system` (or a bundle ID such as `com.spotify.client`) |
 | Regenerate icons from the logo | `design/build-icons.sh`, then `mac/build-app.sh` |
+| Chrome Web Store zip, screenshots and promo tile | `store/build.sh` (output in `store/out/`) |
 
 **Under the hood**
 - **Mac app:** a Core Audio process tap captures the source (macOS 14.4+), and an AVAudioUnitTimePitch effect shifts it.

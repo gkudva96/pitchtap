@@ -1,3 +1,4 @@
 .build/
 PitchTap.app/
 .DS_Store
+store/out/
