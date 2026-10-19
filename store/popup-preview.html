@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../extension/popup.css">
+<style>* { transition: none !important; }</style>
+</head>
+<body>
+<script type="module">
+// Runs the real popup (markup, CSS and popup.js) with a stand-in for the chrome.* APIs, so the
+// store screenshots show the actual UI. State comes from the query string:
+//   ?enabled=1&semitones=-2&cents=0&title=Song
+const q = new URLSearchParams(location.search);
+const state = { enabled: q.get('enabled') === '1', semitones: +(q.get('semitones') ?? 0), cents: +(q.get('cents') ?? 0) };
+const tab = { id: 1, url: 'https://video.example/watch', title: q.get('title') ?? 'Song' };
+window.chrome = {
+  tabs: { query: async () => [tab] },
+  storage: { local: { get: async () => state, set: async () => {} } },
+  runtime: { sendMessage: async (m) => (m.type === 'status' ? { capture: state.enabled ? { tabId: 1, title: tab.title } : null } : { ok: true }) },
+  tabCapture: { getMediaStreamId: async () => 'preview' },
+};
+const html = await (await fetch('../extension/popup.html')).text();
+const doc = new DOMParser().parseFromString(html, 'text/html');
+doc.querySelectorAll('script').forEach((s) => s.remove());
+document.body.innerHTML = doc.body.innerHTML;
+await import('../extension/popup.js');
+</script>
+</body>
+</html>

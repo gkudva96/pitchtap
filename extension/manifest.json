@@ -1,10 +1,11 @@
 {
   "manifest_version": 3,
   "name": "PitchTap",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Change the key of any song in a Chrome tab. Same tempo. Shift live in semitones and cents.",
   "minimum_chrome_version": "116",
   "permissions": ["activeTab", "tabCapture", "offscreen", "storage"],
+  "content_security_policy": { "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';" },
   "background": { "service_worker": "background.js", "type": "module" },
   "action": { "default_popup": "popup.html", "default_title": "PitchTap" },
   "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
