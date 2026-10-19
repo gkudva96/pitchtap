@@ -5,8 +5,8 @@
 <h1 align="center">PitchTap</h1>
 
 <p align="center">
-  <b>Change the key of anything you're listening to, live, without changing its speed.</b><br>
-  Spotify, Apple Music, YouTube, a video call, or your whole Mac.
+  <b>Change the key of any song on your Mac. Same tempo.</b><br>
+  Live, for Spotify, Apple Music, YouTube, a video call, or your whole Mac.
 </p>
 
 ---

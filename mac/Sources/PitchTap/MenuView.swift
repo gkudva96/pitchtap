@@ -45,9 +45,12 @@ struct MenuView: View {
                 Spacer()
                 Button("Quit") { NSApplication.shared.terminate(nil) }
             }
-            Text("⌃⌥↑ / ⌃⌥↓ semitone · ⌃⌥0 reset · PitchTap \(model.version)")
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("⌃⌥↑ / ⌃⌥↓ semitone · ⌃⌥0 reset")
+                Text("PitchTap \(model.version) · Change the key. Same tempo.")
+            }
+            .font(.caption2)
+            .foregroundStyle(.tertiary)
         }
         .padding(14)
         .frame(width: 290)
