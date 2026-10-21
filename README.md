@@ -5,15 +5,20 @@
 <h1 align="center">PitchTap</h1>
 
 <p align="center">
-  <b>Change the key of any song on your Mac. Same tempo.</b><br>
-  Live, for Spotify, Apple Music, YouTube, a video call, or your whole Mac.
+  <b>Change the key of any song. Same tempo.</b><br>
+  On your Mac, or in any Chrome tab. Live, for Spotify, Apple Music, YouTube or a video call.
+</p>
+
+<p align="center">
+  🔒 <b>Private by design.</b> Your audio is processed on your own computer as it plays.<br>
+  Nothing is recorded, saved or sent anywhere. No account, no tracking.
 </p>
 
 ---
 
 ## ✨ What it does
 
-PitchTap sits quietly in your menu bar. Turn it on, pick what you want to hear, and slide the pitch up or down. The music stays at the same tempo; only the key changes.
+Turn PitchTap on and slide the pitch up or down while the music plays. The music stays at the same tempo; only the key changes.
 
 - 🎤 **Sing along in your range.** Drop a song two semitones so the chorus fits your voice.
 - 🎸 **Play along with recordings.** Match a song to your instrument's tuning, or transpose to a key you know.
@@ -21,9 +26,45 @@ PitchTap sits quietly in your menu bar. Turn it on, pick what you want to hear, 
 
 > **What's a semitone?** It's one key on a piano. **+1** moves everything up one key, **+12** a whole octave. **Cents** are for fine tuning: 100 cents make one semitone.
 
+### 🎯 Handy settings
+
+| I want to… | Semitones | Fine tune |
+|---|---|---|
+| Make a song easier to sing (lower) | −1 to −3 | 0 |
+| Hear it an octave down / up | −12 / +12 | 0 |
+| Retune to A = 432 Hz | 0 | −32 |
+| Match a guitar tuned half a step down | −1 | 0 |
+
 ---
 
-## 🚀 Get started on your Mac
+## 🧭 Which PitchTap do I need?
+
+| I'm on… | Get this | What it shifts |
+|---|---|---|
+| 🍎 **Mac** (macOS 14.4+) | 🖥️ **[Mac app](#️-mac-app)** (recommended) | Any app: Spotify, Apple Music, Safari, Zoom… |
+| | 🧩 or the **[Chrome extension](#-chrome-extension)** | One browser tab |
+| 🪟 **Windows** · 🐧 **Linux** · 💻 **ChromeOS** | 🧩 **[Chrome extension](#-chrome-extension)** | One browser tab |
+| 📱 **iPhone · iPad · Android** | ❌ Not available | — |
+
+**Listening in a browser?**
+
+| Browser | 🖥️ Mac app<br><sub>with the browser chosen as its Source</sub> | 🧩 Chrome extension<br><sub>installed in the browser</sub> |
+|---|:---:|:---:|
+| Chrome | ✅ | ✅ |
+| Brave | 🟡 | ✅ |
+| Edge · Vivaldi · Arc · Opera | 🟡 | 🟡 |
+| Safari | 🟡 | ❌ |
+| Firefox | 🟡 | ❌ |
+
+<sub>✅ works &nbsp;·&nbsp; 🟡 should work, not tested yet &nbsp;·&nbsp; ❌ not possible: the browser doesn't let extensions capture a tab's audio</sub>
+
+---
+
+## 🖥️ Mac app
+
+PitchTap sits quietly in your menu bar and shifts any app on your Mac, or all of its sound.
+
+### 🚀 Get started
 
 **You need:** macOS 14.4 (Sonoma) or newer, and Apple's free command-line developer tools. If you've never installed them, run `xcode-select --install` in Terminal first.
 
@@ -50,13 +91,11 @@ PitchTap sits quietly in your menu bar. Turn it on, pick what you want to hear, 
    | With little sound waves | PitchTap is **on** and shifting |
    | `+3`, `−2`, `+0.25`… | How far the pitch is shifted, in semitones |
 
-4. **Allow audio access once.** The first time you switch PitchTap on, macOS asks whether PitchTap may record system audio. Click **Allow**. PitchTap needs this to hear the audio before changing it. Nothing is saved or sent anywhere.
+4. **Allow audio access once.** The first time you switch PitchTap on, macOS asks whether PitchTap may record system audio. Click **Allow**. PitchTap needs this to hear the audio before changing it. It only changes the sound as it plays: nothing is recorded, saved or sent anywhere.
 
 > 💡 **Start at login:** System Settings › General › **Login Items** › **+** › choose PitchTap.
 
----
-
-## 🎚️ Using PitchTap
+### 🎚️ Using the Mac app
 
 Click the menu-bar icon to open the controls:
 
@@ -68,7 +107,7 @@ Click the menu-bar icon to open the controls:
 | **Fine tune** | −50 to +50 cents, for in-between tunings. |
 | **Reset** | Back to normal pitch (0). |
 
-### ⌨️ Shortcuts (work from any app)
+#### ⌨️ Shortcuts (work from any app)
 
 | Keys | Action |
 |---|---|
@@ -76,22 +115,13 @@ Click the menu-bar icon to open the controls:
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>↓</kbd> | Down one semitone |
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>0</kbd> | Reset to normal pitch |
 
-### 🎯 Handy settings
-
-| I want to… | Semitones | Fine tune |
-|---|---|---|
-| Make a song easier to sing (lower) | −1 to −3 | 0 |
-| Hear it an octave down / up | −12 / +12 | 0 |
-| Retune to A = 432 Hz | 0 | −32 |
-| Match a guitar tuned half a step down | −1 | 0 |
-
-### 🧭 Choosing a source
+#### 🎛️ Choosing a source
 
 - **One app** (e.g. *Spotify*) shifts only that app. Everything else, like notifications or a video call, sounds normal. PitchTap remembers your choice: if the app is closed, it waits and starts shifting the moment the app plays again.
 - **All system audio** shifts everything your Mac plays, including alert sounds.
 - Browsers show up as one entry (e.g. *Google Chrome*) even though they use several background processes for sound.
 
-### 💬 What the status line means
+#### 💬 What the status line means
 
 | Message | What's going on |
 |---|---|
@@ -100,26 +130,7 @@ Click the menu-bar icon to open the controls:
 | *Waiting for Spotify to play audio…* | The chosen app is closed or hasn't made a sound yet. Press play. |
 | *Nothing playing from …* | PitchTap is ready, but no sound is coming in. See troubleshooting below. |
 
----
-
-## 🌐 Chrome extension (for any browser tab)
-
-Prefer to shift just one browser tab, or not on a Mac? PitchTap also comes as a Chrome extension.
-
-1. Open `chrome://extensions` and switch on **Developer mode** (top-right).
-2. Click **Load unpacked** and choose the `extension` folder.
-3. Pin **PitchTap** from the puzzle-piece menu so its icon is always visible.
-4. Go to any tab that's playing audio, click the PitchTap icon, and switch **Pitch shift** on.
-
-Good to know:
-- It works on **one tab at a time**. On a different tab, the popup offers **Shift this tab instead**.
-- Chrome only allows this right after you click the icon. After restarting Chrome, click the icon once on your tab to resume.
-- Chrome blocks its own pages (`chrome://…`) and the Web Store.
-- There's a small delay (about 0.1 s), which is unnoticeable for music and slightly noticeable on videos.
-
----
-
-## 🛠️ Troubleshooting
+### 🛠️ Troubleshooting the Mac app
 
 <details>
 <summary><b>I switched it on but hear nothing</b></summary>
@@ -153,16 +164,57 @@ Yes. PitchTap never touches the music files. It only adjusts the sound after the
 
 ---
 
+## 🧩 Chrome extension
+
+Shifts one browser tab, anywhere Chrome runs.
+
+### 🚀 Get started
+
+1. Open `chrome://extensions` and switch on **Developer mode** (top-right).
+2. Click **Load unpacked** and choose the `extension` folder.
+3. Pin **PitchTap** from the puzzle-piece menu so its icon is always visible.
+4. Go to any tab that's playing audio, click the PitchTap icon, and switch **Pitch shift** on.
+
+### 🎚️ Using the extension
+
+The popup has the same **Pitch shift** switch, **Semitones**, **Fine tune** and **Reset** as the Mac app. While a tab is being shifted, the PitchTap icon shows the shift, e.g. `+3`.
+
+- It works on **one tab at a time**. On a different tab, the popup offers **Shift this tab instead**.
+- Chrome only allows this right after you click the icon. After restarting Chrome, click the icon once on your tab to resume.
+- There's a short delay (about 0.1 s): unnoticeable for music, slightly noticeable as lip-sync on videos.
+
+### 🛠️ Troubleshooting the extension
+
+<details>
+<summary><b>"Chrome doesn't let extensions capture this page"</b></summary>
+
+Chrome blocks its own pages (New Tab, Settings, `chrome://…`) and the Chrome Web Store. Go to the tab that's playing and click PitchTap there.
+</details>
+
+<details>
+<summary><b>"Chrome didn't let PitchTap see this tab"</b></summary>
+
+Chrome only gives PitchTap a tab when you click its icon on that tab. Switch to the tab that's playing, then click the PitchTap icon.
+</details>
+
+<details>
+<summary><b>How do I get normal sound back?</b></summary>
+
+Flip the **Pitch shift** switch off, press **Reset**, or close the tab.
+</details>
+
+---
+
 ## 🔍 How it works
 
 ```
- Your app ──sound──▶ PitchTap ──shifted sound──▶ speakers / headphones
-   (its direct sound is muted while PitchTap is on)
+ Your app or tab ──sound──▶ PitchTap ──shifted sound──▶ speakers / headphones
+       (its direct sound is muted while PitchTap is on)
 ```
 
-1. **Listen in.** macOS lets PitchTap take a copy of one app's audio (or all audio). The original is muted, so you don't hear it twice.
+1. **Listen in.** The Mac app takes a copy of one app's audio (or all audio) with macOS's permission; the extension takes the sound of the tab you chose. The original is muted, so you don't hear it twice.
 2. **Shift.** The audio is cut into tiny overlapping slices, each slice is moved up or down in pitch, and they're blended back together. The notes change; the tempo doesn't.
-3. **Play.** The result goes straight to your speakers, a few hundredths of a second behind the original.
+3. **Play.** The result goes straight to your speakers, a fraction of a second behind the original.
 
 ---
 
