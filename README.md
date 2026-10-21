@@ -166,7 +166,7 @@ Yes. PitchTap never touches the music files. It only adjusts the sound after the
 
 ## 🧩 Chrome extension
 
-Shifts one browser tab, anywhere Chrome runs.
+Shifts one browser tab, anywhere Chrome runs. Works in Chrome and Brave, and should work in other Chromium-based browsers like Edge.
 
 ### 🚀 Get started
 
@@ -241,3 +241,9 @@ pitchtap/
 - **Mac app:** a Core Audio process tap captures the source (macOS 14.4+), and an AVAudioUnitTimePitch effect shifts it.
 - **Chrome extension:** `tabCapture` captures the tab, and [Signalsmith Stretch](https://signalsmith-audio.co.uk/code/stretch/) (MIT, WASM) shifts it.
 - **Menu-bar icon:** drawn in code, in `mac/Sources/PitchTap/MenuBarIcon.swift`.
+
+---
+
+## 📄 Licence
+
+PitchTap is free software under the [GNU General Public License v3.0](LICENSE): you can use, study, change and share it, and anything you share that's built on it must also be under GPL-3.0. The bundled [Signalsmith Stretch](https://signalsmith-audio.co.uk/code/stretch/) library keeps its own MIT licence (`extension/vendor/LICENSE-signalsmith-stretch.txt`).
