@@ -37,8 +37,11 @@ PitchTap is a free, open-source **pitch shifter and key changer for macOS**. It 
 ## ⬇️ Download
 
 1. Download **PitchTap.zip** from the [latest release](https://github.com/gkudva96/pitchtap/releases/latest), open it, and drag **PitchTap** into your Applications folder.
-2. Double-click PitchTap. Because it isn't signed with a paid Apple developer certificate, macOS says it can't verify it. Click **Done**.
-3. Open System Settings › **Privacy & Security**, scroll down, click **Open Anyway** next to PitchTap, and confirm. You only do this once.
+2. Double-click PitchTap. Because it isn't signed with a paid Apple developer certificate, macOS says it can't verify it. This is expected: click **Done**, not Move to Trash.
+
+   <img src="docs/gatekeeper-warning.png" width="260" alt="macOS warning: “PitchTap” Not Opened. Apple could not verify “PitchTap” is free of malware. Buttons: Move to Trash, Done">
+
+3. Open System Settings › **Privacy & Security** and scroll down to **Security**. Next to *“PitchTap” was blocked to protect your Mac*, click **Open Anyway**. Confirm with your password or Touch ID, then click **Open Anyway** again. You only do this once.
 
 Prefer to build it yourself? See [For developers](#-for-developers).
 
@@ -114,6 +117,12 @@ Click the menu-bar icon to open the controls:
 ---
 
 ## 🛠️ Troubleshooting
+
+<details>
+<summary><b>I don't see "Open Anyway"</b></summary>
+
+macOS only shows it for about an hour after the warning. Double-click PitchTap again, click **Done**, then go back to System Settings › Privacy & Security.
+</details>
 
 <details>
 <summary><b>I switched it on but hear nothing</b></summary>
