@@ -139,6 +139,12 @@ Open System Settings › Privacy & Security › **Screen & System Audio Recordin
 </details>
 
 <details>
+<summary><b>macOS asks for audio permission again after I rebuilt the app</b></summary>
+
+That's expected. Each build gets a new local signature, so macOS treats it as a new app. Click **Allow** again. If PitchTap still hears nothing, remove the old **PitchTap** entry in System Settings › Privacy & Security › **Screen & System Audio Recording**, then switch PitchTap on again.
+</details>
+
+<details>
 <summary><b>My app isn't in the Source list</b></summary>
 
 Apps appear once they start using sound. Press play in the app, then reopen the menu.
@@ -214,7 +220,7 @@ Flip the **Pitch shift** switch off, press **Reset**, or close the tab.
 
 1. **Listen in.** The Mac app takes a copy of one app's audio (or all audio) with macOS's permission; the extension takes the sound of the tab you chose. The original is muted, so you don't hear it twice.
 2. **Shift.** The audio is cut into tiny overlapping slices, each slice is moved up or down in pitch, and they're blended back together. The notes change; the tempo doesn't.
-3. **Play.** The result goes straight to your speakers, a fraction of a second behind the original.
+3. **Play.** The result goes straight to your speakers, about 0.15 s behind the original: unnoticeable for music, slightly noticeable as lip-sync on videos.
 
 ---
 
@@ -238,12 +244,7 @@ pitchtap/
 | Chrome Web Store zip, screenshots and promo tile | `store/build.sh` (output in `store/out/`) |
 
 **Under the hood**
-- **Mac app:** a Core Audio process tap captures the source (macOS 14.4+), and an AVAudioUnitTimePitch effect shifts it.
-- **Chrome extension:** `tabCapture` captures the tab, and [Signalsmith Stretch](https://signalsmith-audio.co.uk/code/stretch/) (MIT, WASM) shifts it.
+- **Pitch shifting:** [Signalsmith Stretch](https://signalsmith-audio.co.uk/code/stretch/) (MIT) in both: compiled C++ in the Mac app (`mac/Sources/CStretch`), WebAssembly in the extension.
+- **Mac app:** a Core Audio process tap captures the source (macOS 14.4+).
+- **Chrome extension:** `tabCapture` captures the tab.
 - **Menu-bar icon:** drawn in code, in `mac/Sources/PitchTap/MenuBarIcon.swift`.
-
----
-
-## 📄 Licence
-
-PitchTap is free software under the [GNU General Public License v3.0](LICENSE): you can use, study, change and share it, and anything you share that's built on it must also be under GPL-3.0. The bundled [Signalsmith Stretch](https://signalsmith-audio.co.uk/code/stretch/) library keeps its own MIT licence (`extension/vendor/LICENSE-signalsmith-stretch.txt`).

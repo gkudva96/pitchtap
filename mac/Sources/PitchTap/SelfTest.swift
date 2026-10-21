@@ -36,8 +36,37 @@ enum SelfTest {
                 print("FAIL  \(testCase.name): \(error)")
             }
         }
+        if let delay = try? measureDelay(sampleRate: sampleRate, inputHz: inputHz) {
+            print(String(format: "Delay through the shifter: %.0f ms", delay * 1000))
+        }
         print(failures == 0 ? "All \(cases.count) checks passed." : "\(failures) of \(cases.count) checks failed.")
         return failures == 0 ? 0 : 1
+    }
+
+    /// Seconds from a tone starting at the input to it being heard at the output, shifted −3 semitones.
+    private static func measureDelay(sampleRate: Double, inputHz: Double) throws -> Double? {
+        let inputFrames = Int(sampleRate * 2), onset = Int(sampleRate * 0.5)
+        let ring = pt_ring_create(inputFrames)!
+        defer { pt_ring_destroy(ring) }
+        let input = (0..<inputFrames).map {
+            $0 < onset ? 0 : Float(0.5 * sin(2 * .pi * inputHz * Double($0) / sampleRate))
+        }
+        _ = input.withUnsafeBufferPointer { pt_ring_write(ring, $0.baseAddress!, $0.baseAddress!, inputFrames, 1) }
+
+        let graph = try PitchGraph(sampleRate: sampleRate, ring: ring, offline: true, latencyGuard: false)
+        graph.apply(PitchParams(semitones: -3))
+        defer { graph.stop() }
+        let chunk = AVAudioPCMBuffer(pcmFormat: graph.format, frameCapacity: PitchGraph.maxFrames)!
+        var rendered = 0
+        while rendered < inputFrames {
+            guard try graph.engine.renderOffline(PitchGraph.maxFrames, to: chunk) == .success else { return nil }
+            let samples = UnsafeBufferPointer(start: chunk.floatChannelData![0], count: Int(chunk.frameLength))
+            if let i = samples.firstIndex(where: { abs($0) > 0.05 }) {
+                return Double(rendered + i - onset) / sampleRate
+            }
+            rendered += Int(chunk.frameLength)
+        }
+        return nil
     }
 
     private static func measure(_ params: PitchParams, sampleRate: Double, inputHz: Double) throws
