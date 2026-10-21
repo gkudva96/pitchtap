@@ -30,6 +30,13 @@ struct MenuView: View {
                 Slider(value: intBinding(\.semitones), in: -12...12, step: 1)
                 LabeledValue(title: "Fine tune", value: String(format: "%+d cents", model.params.cents))
                 Slider(value: intBinding(\.cents), in: -50...50, step: 1)
+                Picker("Tuning", selection: $model.params.cents) {
+                    ForEach(PitchParams.tunings, id: \.cents) { Text($0.name).tag($0.cents) }
+                    if !PitchParams.tunings.contains(where: { $0.cents == model.params.cents }) {
+                        Text(String(format: "Custom (%+d cents)", model.params.cents)).tag(model.params.cents)
+                    }
+                }
+                .pickerStyle(.menu)
             }
 
             Divider()
