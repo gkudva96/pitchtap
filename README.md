@@ -18,11 +18,15 @@
 
 ## ✨ What it does
 
-PitchTap sits quietly in your menu bar. Turn it on, pick what you want to hear, and slide the pitch up or down. The music stays at the same tempo; only the key changes.
+PitchTap is a free, open-source **pitch shifter and key changer for macOS**. It sits quietly in your menu bar: turn it on, pick what you want to hear, and slide the pitch up or down. The music stays at the same tempo; only the key changes.
 
-- 🎤 **Sing along in your range.** Drop a song two semitones so the chorus fits your voice.
-- 🎸 **Play along with recordings.** Match a song to your instrument's tuning, or transpose to a key you know.
+- 🎤 **Sing along or karaoke in your range.** Drop a song two semitones so the chorus fits your voice.
+- 🎸 **Play along with recordings.** Transpose a song to a key you know, or match it to your instrument's tuning.
 - 🎧 **Just for fun.** Hear a song an octave lower, or retune to A = 432 Hz.
+
+<p align="center">
+  <img src="docs/menu.png" width="340" alt="PitchTap menu: Pitch shift on, shifting Spotify up one semitone, with Source, Semitones, Fine tune and Tuning controls">
+</p>
 
 > **What's a semitone?** It's one key on a piano. **+1** moves everything up one key, **+12** a whole octave. **Cents** are for fine tuning: 100 cents make one semitone.
 
