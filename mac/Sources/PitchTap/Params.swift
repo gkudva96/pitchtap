@@ -7,6 +7,13 @@ struct PitchParams: Equatable {
     static let semitoneRange = -12...12
     static let centsRange = -50...50
 
+    /// Common reference tunings as fine-tune offsets: 1200 × log2(target / source), rounded.
+    static let tunings: [(name: String, cents: Int)] = [
+        ("Standard (A = 440 Hz)", 0),
+        ("A = 432 Hz", -32),
+        ("From A = 442 Hz to 440", -8),
+    ]
+
     var totalCents: Int { semitones * 100 + cents }
     var isNeutral: Bool { totalCents == 0 }
 }
