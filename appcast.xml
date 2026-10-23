@@ -5,5 +5,19 @@
     <title>PitchTap</title>
     <link>https://github.com/gkudva96/pitchtap</link>
     <language>en</language>
+    <item>
+      <title>PitchTap 0.4.0</title>
+      <pubDate>Fri, 23 Oct 2026 15:15:30 +0000</pubDate>
+      <sparkle:version>4</sparkle:version>
+      <sparkle:shortVersionString>0.4.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.4</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul>
+        <li>Updates now install themselves: a daily check, one click to install, and Check for Updates… in the menu.</li>
+        <li>The key change in musical terms ("Whole step down"), with an ⓘ capo hint for fretted instruments.</li>
+        <li>Hear original: compare with the original key instantly (⌃⌥B or the menu).</li>
+      </ul>]]></description>
+      <enclosure url="https://github.com/gkudva96/pitchtap/releases/download/v0.4.0/PitchTap.zip"
+                 type="application/octet-stream" sparkle:edSignature="kNVbPLmg0GNZ29zmLemdjTGk+aZFIXK5cTQ+HZKgIZENXtUcu6cqxhL5yAKZ0KTrHIrutRp8EN8o7VqPmDdSCw==" length="2032512"/>
+    </item>
   </channel>
 </rss>
