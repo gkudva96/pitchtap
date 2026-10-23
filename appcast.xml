@@ -6,6 +6,21 @@
     <link>https://github.com/gkudva96/pitchtap</link>
     <language>en</language>
     <item>
+      <title>PitchTap 0.4.1</title>
+      <pubDate>Fri, 23 Oct 2026 15:43:30 +0000</pubDate>
+      <sparkle:version>5</sparkle:version>
+      <sparkle:shortVersionString>0.4.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.4</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul>
+        <li>A redesigned menu: the key front and centre, with − / + buttons and ↺ to reset.</li>
+        <li>Original | Shifted to compare at a glance.</li>
+        <li>App icons for the source, a coloured status dot, and Fine tune folded under Tuning.</li>
+        <li>Settings, updates and keyboard shortcuts in the ⚙︎ menu.</li>
+      </ul>]]></description>
+      <enclosure url="https://github.com/gkudva96/pitchtap/releases/download/v0.4.1/PitchTap.zip"
+                 type="application/octet-stream" sparkle:edSignature="L7JGHrvyrC/cEbYj43a//9kXDrbHM/u4HXY48IlVGs57bI6QvgvB2LliEHg/W3nBCwDzElKjwUwJSLyEUt66Aw==" length="2057362"/>
+    </item>
+    <item>
       <title>PitchTap 0.4.0</title>
       <pubDate>Fri, 23 Oct 2026 15:15:30 +0000</pubDate>
       <sparkle:version>4</sparkle:version>
