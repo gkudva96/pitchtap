@@ -16,6 +16,30 @@ struct PitchParams: Equatable {
 
     var totalCents: Int { semitones * 100 + cents }
     var isNeutral: Bool { totalCents == 0 }
+
+    private static let intervals = ["", "Half step", "Whole step", "Minor 3rd", "Major 3rd", "4th", "Tritone",
+                                    "5th", "Minor 6th", "Major 6th", "Minor 7th", "Major 7th", "Octave"]
+
+    /// The shift as any musician would say it, e.g. "Whole step down".
+    var musicalDescription: String {
+        if semitones == 0 { return cents == 0 ? "Original key" : "Original key, fine-tuned" }
+        let interval = Self.intervals[abs(semitones)] + (semitones > 0 ? " up" : " down")
+        return cents == 0 ? interval : "≈ " + interval
+    }
+
+    /// How to play along on a fretted instrument with the original chord shapes, or nil if no capo or
+    /// retuning helps (no shift, a whole octave, or a fraction of a semitone).
+    var fretHint: String? {
+        guard cents == 0 else { return nil }
+        // The capo fret that puts the original shapes in the shifted key; past the 7th, tune down instead.
+        let fret = (semitones % 12 + 12) % 12
+        let prefix = "Playing along on guitar, ukulele or another fretted instrument: "
+        switch fret {
+        case 0: return nil
+        case 1...7: return prefix + "capo \(fret) with the original chord shapes."
+        default: return prefix + "tune down \(12 - fret) semitone\(12 - fret == 1 ? "" : "s") and use the original chord shapes."
+        }
+    }
 }
 
 /// What gets pitch-shifted: one app (and its helper processes), or everything except PitchTap.

@@ -10,10 +10,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 struct PitchTapApp: App {
     @NSApplicationDelegateAdaptor private var delegate: AppDelegate
     @StateObject private var model = AppModel()
+    @StateObject private var updates = Updates()
 
     var body: some Scene {
         MenuBarExtra {
-            MenuView(model: model)
+            MenuView(model: model, updates: updates)
         } label: {
             Image(nsImage: MenuBarIcon.image(active: model.enabled))
             if !model.menuBarLabel.isEmpty { Text(model.menuBarLabel) }

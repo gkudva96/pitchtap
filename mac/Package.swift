@@ -4,6 +4,9 @@ import PackageDescription
 let package = Package(
     name: "PitchTap",
     platforms: [.macOS("14.4")],
+    dependencies: [
+        .package(url: "https://github.com/sparkle-project/Sparkle", exact: "2.10.0"),
+    ],
     targets: [
         .target(name: "CPitchRing"),
         .target(
@@ -14,8 +17,9 @@ let package = Package(
         ),
         .executableTarget(
             name: "PitchTap",
-            dependencies: ["CPitchRing", "CStretch"],
+            dependencies: ["CPitchRing", "CStretch", .product(name: "Sparkle", package: "Sparkle")],
             linkerSettings: [
+                .unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/../Frameworks"]),
                 .linkedFramework("CoreAudio"),
                 .linkedFramework("AVFoundation"),
                 .linkedFramework("Carbon"),
