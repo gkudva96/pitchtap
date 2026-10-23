@@ -25,7 +25,7 @@ PitchTap is a free, open-source **pitch shifter and key changer for macOS**. It 
 - 🎧 **Just for fun.** Hear a song an octave lower, or retune to A = 432 Hz.
 
 <p align="center">
-  <img src="docs/menu.png" width="340" alt="PitchTap menu: Pitch shift on, shifting Spotify up one semitone, with Source, Semitones, Fine tune and Tuning controls">
+  <img src="docs/menu.png" width="340" alt="PitchTap menu: switched on and shifting Spotify, key +3 (a minor 3rd up) with the A = 432 Hz tuning, Original and Shifted buttons, and a settings gear">
 </p>
 
 > **What's a semitone?** It's one key on a piano. **+1** moves everything up one key, **+12** a whole octave. **Cents** are for fine tuning: 100 cents make one semitone.
@@ -43,7 +43,7 @@ PitchTap is a free, open-source **pitch shifter and key changer for macOS**. It 
 
 3. Open System Settings › **Privacy & Security** and scroll down to **Security**. Next to *“PitchTap” was blocked to protect your Mac*, click **Open Anyway**. Confirm with your password or Touch ID, then click **Open Anyway** again. You only do this once.
 
-**Updates install themselves (from 0.4.0 on).** PitchTap checks once a day. When a new version is out, it shows what's new with an **Install Update** button, and you don't repeat the steps above. You can also click **Check for Updates…** in the menu. Coming from 0.3.0 or earlier? Download 0.4.0 once by hand; macOS will ask for the audio permission one more time.
+**Updates install themselves (from 0.4.0 on).** PitchTap checks once a day. When a new version is out, it shows what's new with an **Install Update** button, and you don't repeat the steps above. You can also choose **Check for Updates…** from the ⚙︎ menu. Coming from 0.3.0 or earlier? Download 0.4.0 once by hand; macOS will ask for the audio permission one more time.
 
 Prefer to build it yourself? See [For developers](#-for-developers).
 
@@ -76,14 +76,13 @@ Click the menu-bar icon to open the controls:
 
 | Control | What it does |
 |---|---|
-| **Pitch shift** switch | Turns PitchTap on or off. Off means everything sounds normal again, instantly. |
-| **Source** | What to shift: **All system audio**, or a single app. The list fills in by itself with every app currently using sound, and **♪** marks the ones playing right now. |
-| **Semitones** | −12 to +12. Each step is one piano key. Underneath, the change in musical terms (*Whole step down*). Click the ⓘ next to it for the capo fret (or retuning) that lets guitar, ukulele and other fretted players use the original chord shapes. |
-| **Fine tune** | −50 to +50 cents, for in-between tunings. |
-| **Tuning** | Sets Fine tune for you: **Standard (A = 440 Hz)**, **A = 432 Hz**, or **From A = 442 Hz to 440** for recordings tuned a little sharp. Shows *Custom* when you move the slider yourself. |
-| **Hear original** | Plays the song in its original key while you hold your setting, for a quick before/after. |
-| **Launch at login** | Starts PitchTap when you log in. |
-| **Reset** | Back to normal pitch (0). |
+| **Switch** (top right) | Turns PitchTap on or off. Off means everything sounds normal again, instantly. The coloured dot shows the status: green shifting, orange waiting, grey off. |
+| **Source** | What to shift: **All system audio**, or a single app, shown with its icon. The list fills in by itself with every app currently using sound, and **♪** marks the ones playing right now. |
+| **Key** | **−** / **+** or the slider: −12 to +12 semitones, each one piano key. Underneath, the change in musical terms (*Whole step down*); click the **ⓘ** for the capo fret (or retuning) that lets guitar, ukulele and other fretted players use the original chord shapes. **↺** resets to the original key. |
+| **Original \| Shifted** | Flip to the original key and back, instantly, for a quick before/after. |
+| **Tuning** | **Standard (A = 440 Hz)**, **A = 432 Hz**, or **From A = 442 Hz to 440** for recordings tuned a little sharp. Shows *Custom* when you set Fine tune yourself. |
+| **▸ Fine tune** | Opens a −50 to +50 cents slider, for in-between tunings. |
+| **⚙︎ menu** | Launch at login, Check for Updates…, Keyboard Shortcuts, Show Welcome and Quit. |
 
 ### ⌨️ Shortcuts (work from any app)
 
@@ -91,12 +90,12 @@ Click the menu-bar icon to open the controls:
 |---|---|
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>↑</kbd> | Up one semitone (also turns PitchTap on) |
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>↓</kbd> | Down one semitone |
-| <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>B</kbd> | Hear original / back to your key |
+| <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>B</kbd> | Original / Shifted |
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>0</kbd> | Reset to normal pitch |
 
 ### 🎯 Handy settings
 
-| I want to… | Semitones | Fine tune |
+| I want to… | Key | Fine tune |
 |---|---|---|
 | Make a song easier to sing (lower) | −1 to −3 | 0 |
 | Hear it an octave down / up | −12 / +12 | 0 |
