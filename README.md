@@ -49,7 +49,7 @@ Prefer to build it yourself? See [For developers](#-for-developers).
 
 ## 🚀 Get started
 
-1. **Find it in your menu bar.** PitchTap has no window or Dock icon. It lives at the top-right of your screen:
+1. **Find it in your menu bar.** PitchTap has no Dock icon; the first time you open it, a welcome window shows where to look. It lives at the top-right of your screen:
 
    <p>
      <picture>
