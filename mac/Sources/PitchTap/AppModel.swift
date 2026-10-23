@@ -9,6 +9,7 @@ final class AppModel: ObservableObject {
     @Published var enabled: Bool {
         didSet {
             UserDefaults.standard.set(enabled, forKey: Self.enabledKey)
+            if !enabled { hearingOriginal = false }
             engine.setEnabled(enabled)
         }
     }
@@ -17,9 +18,17 @@ final class AppModel: ObservableObject {
         didSet {
             guard params != oldValue else { return }
             params.save()
-            engine.update(params)
+            engine.update(audibleParams)
         }
     }
+
+    /// Plays the source unshifted for A/B comparison. Unlike turning pitch shift off, the tap keeps
+    /// running at the same latency, so switching is instant and doesn't jump in time. Not saved.
+    @Published var hearingOriginal = false {
+        didSet { engine.update(audibleParams) }
+    }
+
+    private var audibleParams: PitchParams { hearingOriginal ? PitchParams() : params }
 
     @Published var source: AudioSource {
         didSet {
@@ -48,6 +57,10 @@ final class AppModel: ObservableObject {
         HotKeys.register(keyCode: kVK_UpArrow) { [weak self] in self?.nudge(by: 1) }
         HotKeys.register(keyCode: kVK_DownArrow) { [weak self] in self?.nudge(by: -1) }
         HotKeys.register(keyCode: kVK_ANSI_0) { [weak self] in self?.reset() }
+        HotKeys.register(keyCode: kVK_ANSI_B) { [weak self] in
+            guard let self, self.enabled else { return }
+            self.hearingOriginal.toggle()
+        }
 
         NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil,
                                                queue: .main) { [weak self] _ in self?.engine.shutdown() }
@@ -72,10 +85,12 @@ final class AppModel: ObservableObject {
     }
 
     func reset() {
+        hearingOriginal = false
         params = PitchParams()
     }
 
     private func nudge(by step: Int) {
+        hearingOriginal = false
         params.semitones = (params.semitones + step).clamped(to: PitchParams.semitoneRange)
         if !enabled { enabled = true }
     }
@@ -96,6 +111,7 @@ final class AppModel: ObservableObject {
     /// Short text next to the menu bar icon.
     var menuBarLabel: String {
         guard enabled, !params.isNeutral else { return "" }
+        if hearingOriginal { return "orig" }
         let semis = Double(params.totalCents) / 100
         return semis == semis.rounded() ? String(format: "%+d", Int(semis)) : String(format: "%+.2f", semis)
     }

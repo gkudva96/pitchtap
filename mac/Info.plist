@@ -13,13 +13,21 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.3.0</string>
+	<string>0.4.0</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>14.4</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/gkudva96/pitchtap/main/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>iy40pvl4EhKDoprYsP6lVGMqkCbdu5OrcCMcJfpbU90=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUScheduledCheckInterval</key>
+	<integer>86400</integer>
 	<key>NSAudioCaptureUsageDescription</key>
 	<string>PitchTap captures the audio you choose so it can change its pitch before you hear it.</string>
 </dict>

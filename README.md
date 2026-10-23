@@ -43,6 +43,8 @@ PitchTap is a free, open-source **pitch shifter and key changer for macOS**. It 
 
 3. Open System Settings › **Privacy & Security** and scroll down to **Security**. Next to *“PitchTap” was blocked to protect your Mac*, click **Open Anyway**. Confirm with your password or Touch ID, then click **Open Anyway** again. You only do this once.
 
+**Updates install themselves (from 0.4.0 on).** PitchTap checks once a day. When a new version is out, it shows what's new with an **Install Update** button, and you don't repeat the steps above. You can also click **Check for Updates…** in the menu. Coming from 0.3.0 or earlier? Download 0.4.0 once by hand; macOS will ask for the audio permission one more time.
+
 Prefer to build it yourself? See [For developers](#-for-developers).
 
 ---
@@ -76,9 +78,10 @@ Click the menu-bar icon to open the controls:
 |---|---|
 | **Pitch shift** switch | Turns PitchTap on or off. Off means everything sounds normal again, instantly. |
 | **Source** | What to shift: **All system audio**, or a single app. The list fills in by itself with every app currently using sound, and **♪** marks the ones playing right now. |
-| **Semitones** | −12 to +12. Each step is one piano key. |
+| **Semitones** | −12 to +12. Each step is one piano key. Underneath, the change in musical terms (*Whole step down*). Click the ⓘ next to it for the capo fret (or retuning) that lets guitar, ukulele and other fretted players use the original chord shapes. |
 | **Fine tune** | −50 to +50 cents, for in-between tunings. |
 | **Tuning** | Sets Fine tune for you: **Standard (A = 440 Hz)**, **A = 432 Hz**, or **From A = 442 Hz to 440** for recordings tuned a little sharp. Shows *Custom* when you move the slider yourself. |
+| **Hear original** | Plays the song in its original key while you hold your setting, for a quick before/after. |
 | **Launch at login** | Starts PitchTap when you log in. |
 | **Reset** | Back to normal pitch (0). |
 
@@ -88,6 +91,7 @@ Click the menu-bar icon to open the controls:
 |---|---|
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>↑</kbd> | Up one semitone (also turns PitchTap on) |
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>↓</kbd> | Down one semitone |
+| <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>B</kbd> | Hear original / back to your key |
 | <kbd>⌃ Control</kbd> <kbd>⌥ Option</kbd> <kbd>0</kbd> | Reset to normal pitch |
 
 ### 🎯 Handy settings
@@ -197,15 +201,17 @@ pitchtap/
 | Build the app | `mac/build-app.sh` |
 | Offline DSP self-test (pitch, tempo, delay) | `mac/PitchTap.app/Contents/MacOS/PitchTap --selftest` |
 | Live capture probe | `open -W mac/PitchTap.app --args --probe 8 /tmp/probe.txt system` (or a bundle ID such as `com.spotify.client`) |
+| Make a release zip and its appcast entry | `mac/release.sh` (needs the signing certificate and Sparkle key) |
 | Regenerate icons from the logo | `design/build-icons.sh`, then `mac/build-app.sh` |
 
 **Under the hood**
 - **Capture:** a Core Audio process tap (macOS 14.4+) on one app or all system audio, excluding PitchTap's own output.
 - **Pitch shifting:** [Signalsmith Stretch](https://signalsmith-audio.co.uk/code/stretch/) (MIT), vendored in `mac/Sources/CStretch`.
+- **Updates:** [Sparkle](https://sparkle-project.org) (MIT) reads `appcast.xml` in this repo; each zip is checked against an EdDSA signature.
 - **Menu-bar icon:** drawn in code, in `mac/Sources/PitchTap/MenuBarIcon.swift`.
 
 ---
 
 ## 📄 Licence
 
-PitchTap is free software under the [GNU General Public License v3.0](LICENSE): you can use, study, change and share it, and anything you share that's built on it must also be under GPL-3.0. The bundled Signalsmith Stretch library keeps its own MIT licence (`mac/Sources/CStretch/vendor`).
+PitchTap is free software under the [GNU General Public License v3.0](LICENSE): you can use, study, change and share it, and anything you share that's built on it must also be under GPL-3.0. The bundled Signalsmith Stretch library (`mac/Sources/CStretch/vendor`) and the Sparkle update framework keep their own MIT licences.

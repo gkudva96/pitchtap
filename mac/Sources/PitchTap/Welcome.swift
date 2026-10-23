@@ -59,9 +59,13 @@ private struct WelcomeView: View {
                     + "only changes the sound as it plays; nothing is recorded, saved or sent.")
             }
 
-            Text("Shortcuts from any app: ⌃⌥↑ / ⌃⌥↓ change the key, ⌃⌥0 resets.")
-                .font(.callout)
-                .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Shortcuts from any app: ⌃⌥↑ / ⌃⌥↓ change the key, ⌃⌥B plays the original, ⌃⌥0 resets.")
+                Text("PitchTap checks for updates once a day and asks before installing one.")
+            }
+            .font(.callout)
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
 
             HStack {
                 Spacer()

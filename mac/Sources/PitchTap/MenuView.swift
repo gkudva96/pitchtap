@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuView: View {
     @ObservedObject var model: AppModel
+    @ObservedObject var updates: Updates
     private let refresh = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
 
     var body: some View {
@@ -28,6 +29,12 @@ struct MenuView: View {
             VStack(alignment: .leading, spacing: 6) {
                 LabeledValue(title: "Semitones", value: String(format: "%+d", model.params.semitones))
                 Slider(value: intBinding(\.semitones), in: -12...12, step: 1)
+                HStack(spacing: 4) {
+                    Text(model.params.musicalDescription)
+                    if let hint = model.params.fretHint { FretHintButton(hint: hint) }
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
                 LabeledValue(title: "Fine tune", value: String(format: "%+d cents", model.params.cents))
                 Slider(value: intBinding(\.cents), in: -50...50, step: 1)
                 Picker("Tuning", selection: $model.params.cents) {
@@ -37,6 +44,8 @@ struct MenuView: View {
                     }
                 }
                 .pickerStyle(.menu)
+                Toggle("Hear original", isOn: $model.hearingOriginal)
+                    .disabled(!model.enabled)
             }
 
             Divider()
@@ -50,10 +59,12 @@ struct MenuView: View {
             HStack {
                 Button("Reset") { model.reset() }
                 Spacer()
+                Button("Check for Updates…") { updates.check() }
+                    .disabled(!updates.canCheck)
                 Button("Quit") { NSApplication.shared.terminate(nil) }
             }
             VStack(alignment: .leading, spacing: 2) {
-                Text("⌃⌥↑ / ⌃⌥↓ semitone · ⌃⌥0 reset")
+                Text("⌃⌥↑ / ⌃⌥↓ semitone · ⌃⌥B original · ⌃⌥0 reset")
                 Text("PitchTap \(model.version) · Change the key. Same tempo.")
             }
             .font(.caption2)
@@ -79,6 +90,26 @@ struct MenuView: View {
             get: { Double(model.params[keyPath: keyPath]) },
             set: { model.params[keyPath: keyPath] = Int($0.rounded()) }
         )
+    }
+}
+
+/// ⓘ that opens the capo / retuning hint. A click, not a tooltip: menu-bar panels aren't the active
+/// app, so tooltips don't show.
+private struct FretHintButton: View {
+    let hint: String
+    @State private var shown = false
+
+    var body: some View {
+        Button { shown.toggle() } label: { Image(systemName: "info.circle") }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Fretted instrument hint")
+            .popover(isPresented: $shown, arrowEdge: .bottom) {
+                Text(hint)
+                    .font(.callout)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(width: 240, alignment: .leading)
+                    .padding(12)
+            }
     }
 }
 
