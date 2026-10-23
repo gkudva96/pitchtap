@@ -186,7 +186,7 @@ Yes. PitchTap never touches the music files. It only adjusts the sound after the
 
 ## 👩‍💻 For developers
 
-**Build from source:** install Apple's free command-line tools once (`xcode-select --install`), then run `mac/build-app.sh`. It creates `mac/PitchTap.app`. Apps you build yourself open without the "Open Anyway" step.
+**Build from source:** install Apple's free command-line tools once (`xcode-select --install`), then run `mac/build-app.sh`. It creates `mac/.build/PitchTap.app` (a hidden folder; `open mac/.build` shows it in Finder), which you can drag into Applications. Apps you build yourself open without the "Open Anyway" step.
 
 ```
 pitchtap/
@@ -198,8 +198,8 @@ pitchtap/
 | Task | Command |
 |---|---|
 | Build the app | `mac/build-app.sh` |
-| Offline DSP self-test (pitch, tempo, delay) | `mac/PitchTap.app/Contents/MacOS/PitchTap --selftest` |
-| Live capture probe | `open -W mac/PitchTap.app --args --probe 8 /tmp/probe.txt system` (or a bundle ID such as `com.spotify.client`) |
+| Offline DSP self-test (pitch, tempo, delay) | `mac/.build/PitchTap.app/Contents/MacOS/PitchTap --selftest` |
+| Live capture probe | `open -W mac/.build/PitchTap.app --args --probe 8 /tmp/probe.txt system` (or a bundle ID such as `com.spotify.client`) |
 | Make a release zip and its appcast entry | `mac/release.sh` (needs the signing certificate and Sparkle key) |
 | Regenerate icons from the logo | `design/build-icons.sh`, then `mac/build-app.sh` |
 

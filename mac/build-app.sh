@@ -1,11 +1,12 @@
 #!/bin/sh
-# Builds PitchTap.app (release) next to this script, signed with the "PitchTap Self-Signed" certificate
+# Builds .build/PitchTap.app (release), signed with the "PitchTap Self-Signed" certificate
 # so the audio permission survives updates (SIGN_ID=… to use another; ad-hoc if it isn't in the keychain).
+# It goes in the hidden .build folder so Spotlight doesn't list it beside the installed app.
 # SANDBOX=1 ./build-app.sh signs it with the App Sandbox (as the Mac App Store requires); updates won't work.
 set -e
 cd "$(dirname "$0")"
 swift build -c release
-APP=PitchTap.app
+APP=.build/PitchTap.app
 SIGN_ID="${SIGN_ID:-PitchTap Self-Signed}"
 if ! security find-identity -p codesigning | grep -q "\"$SIGN_ID\""; then
   echo "warning: no \"$SIGN_ID\" signing identity; signing ad-hoc (users re-allow audio after each update)" >&2

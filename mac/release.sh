@@ -9,7 +9,7 @@ VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" Info.pli
 BUILD=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" Info.plist)
 MIN_OS=$(/usr/libexec/PlistBuddy -c "Print LSMinimumSystemVersion" Info.plist)
 rm -f PitchTap.zip
-ditto -c -k --sequesterRsrc --keepParent PitchTap.app PitchTap.zip
+ditto -c -k --sequesterRsrc --keepParent .build/PitchTap.app PitchTap.zip
 SIGNATURE=$(.build/artifacts/sparkle/Sparkle/bin/sign_update PitchTap.zip)
 cat <<EOF
 
