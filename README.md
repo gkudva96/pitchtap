@@ -6,7 +6,8 @@
 
 <p align="center">
   <b>Change the key of any song on your Mac. Same tempo.</b><br>
-  Live, for Spotify, Apple Music, YouTube, a video call, or your whole Mac.
+  Live, for Spotify, Apple Music, YouTube, a video call, or your whole Mac.<br>
+  <a href="https://gkudva96.github.io/pitchtap/">Website</a> · <a href="https://github.com/gkudva96/pitchtap/releases/latest">Download</a>
 </p>
 
 <p align="center">
@@ -116,6 +117,22 @@ Click the menu-bar icon to open the controls:
 | *Shifting Spotify → MacBook Pro Speakers* | All good: that source is being shifted and played on that device. |
 | *Waiting for Spotify to play audio…* | The chosen app is closed or hasn't made a sound yet. Press play. |
 | *Nothing playing from …* | PitchTap is ready, but no sound is coming in. See troubleshooting below. |
+
+---
+
+## ❓ FAQ
+
+**How do I change the key of a song on Spotify on a Mac?**
+Open PitchTap from the menu bar, choose **Spotify** as the source, and press **−** or **+**. Each step is one semitone, and Spotify keeps playing at its normal speed. The same works for Apple Music, YouTube in any browser, or any other app.
+
+**Can I change the pitch without changing the tempo?**
+Yes, that's all PitchTap does: up to an octave either way (±12 semitones, plus ±50 cents for fine tuning), with the speed unchanged.
+
+**Which apps does it work with?**
+Any app that plays sound, or all system audio at once. See [Choosing a source](#%EF%B8%8F-choosing-a-source).
+
+**Is it free?**
+Yes. PitchTap is open source under the [GPL-3.0](LICENSE), with no ads, account or in-app purchases, and it [updates itself](#%EF%B8%8F-download).
 
 ---
 
