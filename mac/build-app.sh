@@ -14,6 +14,7 @@ fi
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
 cp .build/release/PitchTap "$APP/Contents/MacOS/PitchTap"
+/usr/bin/strip -S -x "$APP/Contents/MacOS/PitchTap" # debug symbols carry build paths (the builder's home folder)
 cp Info.plist "$APP/Contents/Info.plist"
 cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 ditto .build/release/Sparkle.framework "$APP/Contents/Frameworks/Sparkle.framework"
