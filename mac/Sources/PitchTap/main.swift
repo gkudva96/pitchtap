@@ -1,7 +1,14 @@
 import Foundation
 import SwiftUI
 
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        Welcome.showIfFirstLaunch()
+    }
+}
+
 struct PitchTapApp: App {
+    @NSApplicationDelegateAdaptor private var delegate: AppDelegate
     @StateObject private var model = AppModel()
 
     var body: some Scene {
