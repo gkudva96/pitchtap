@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PitchTap: Free Pitch Shifter &amp; Key Changer for Mac</title>
+<meta name="description" content="Change the key of any song on your Mac, live, without changing the tempo. Free, open-source menu-bar app for Spotify, Apple Music, YouTube and more.">
+<link rel="canonical" href="https://gkudva96.github.io/pitchtap/">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<meta name="color-scheme" content="light dark">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PitchTap">
+<meta property="og:title" content="PitchTap: Free Pitch Shifter &amp; Key Changer for Mac">
+<meta property="og:description" content="Change the key of any song on your Mac, live, without changing the tempo. Free and open source.">
+<meta property="og:url" content="https://gkudva96.github.io/pitchtap/">
+<meta property="og:image" content="https://gkudva96.github.io/pitchtap/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="PitchTap logo and tagline">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PitchTap",
+  "description": "Free, open-source Mac menu-bar app that changes the key of any app's audio, or all system audio, live, without changing the tempo.",
+  "url": "https://gkudva96.github.io/pitchtap/",
+  "image": "https://gkudva96.github.io/pitchtap/logo.png",
+  "screenshot": "https://gkudva96.github.io/pitchtap/menu.png",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "macOS 14.4 or later (Apple silicon)",
+  "downloadUrl": "https://github.com/gkudva96/pitchtap/releases/latest/download/PitchTap.zip",
+  "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "gkudva96", "url": "https://github.com/gkudva96" },
+  "codeRepository": "https://github.com/gkudva96/pitchtap"
+}
+</script>
+
+<style>
+  :root {
+    --bg: #fbfaf8;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --muted: #5c5c63;
+    --line: #e4e2dd;
+    --accent: #6a4cff;
+    --accent-text: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141416;
+      --surface: #1e1e21;
+      --text: #f2f2f4;
+      --muted: #a4a4ad;
+      --line: #2e2e33;
+      --accent: #8c74ff;
+      --accent-text: #ffffff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 0 16px 64px; }
+  a { color: var(--accent); }
+  header.hero { text-align: center; padding: 56px 0 32px; }
+  .hero img { width: 112px; height: 112px; }
+  h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.15; margin: 16px 0 8px; letter-spacing: -0.02em; }
+  .tagline { font-size: clamp(18px, 3.2vw, 21px); color: var(--muted); margin: 0 auto 28px; max-width: 34em; }
+  .button {
+    display: inline-block; background: var(--accent); color: var(--accent-text);
+    text-decoration: none; font-weight: 600; padding: 13px 26px; border-radius: 12px;
+  }
+  .button:hover { filter: brightness(1.08); }
+  .fineprint { color: var(--muted); font-size: 14px; margin-top: 12px; }
+  h2 { font-size: 24px; margin: 48px 0 12px; letter-spacing: -0.01em; }
+  .uses { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 12px; padding: 0; list-style: none; }
+  .uses li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+  .uses b { display: block; margin-bottom: 4px; }
+  figure { margin: 32px 0 0; text-align: center; }
+  figure img { width: 100%; max-width: 340px; height: auto; }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin: 8px 0; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin: 8px 0 0; }
+  footer { border-top: 1px solid var(--line); margin-top: 56px; padding-top: 20px; color: var(--muted); font-size: 14px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <img src="logo.png" width="112" height="112" alt="PitchTap logo: a music note whose stem becomes a tuning fork">
+    <h1>Change the key of any song on your Mac</h1>
+    <p class="tagline">PitchTap is a free pitch shifter for macOS. Move Spotify, Apple Music, YouTube or your whole Mac up or down in pitch, live, and the tempo stays the same.</p>
+    <a class="button" href="https://github.com/gkudva96/pitchtap/releases/latest/download/PitchTap.zip">Download for Mac</a>
+    <p class="fineprint">Free and open source · macOS 14.4+ · Apple silicon · <a href="https://github.com/gkudva96/pitchtap">Source on GitHub</a></p>
+  </header>
+
+  <section>
+    <h2>What it's for</h2>
+    <ul class="uses">
+      <li><b>🎤 Singing and karaoke</b>Drop a song a couple of semitones so the chorus fits your voice.</li>
+      <li><b>🎸 Playing along</b>Transpose a recording to a key you know, or match your instrument's tuning. The capo fret is shown for you.</li>
+      <li><b>🎧 Just for fun</b>Hear a song an octave lower, or retune it to A = 432 Hz.</li>
+    </ul>
+    <figure>
+      <img src="menu.png" width="346" height="457" loading="lazy" alt="PitchTap menu: shifting Spotify, key +3 (a minor 3rd up) with the A = 432 Hz tuning, Original and Shifted buttons">
+      <figcaption>It lives in your menu bar: pick a source, slide the key, done.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Private by design</h2>
+    <p>Your audio is changed on your own Mac as it plays. Nothing is recorded, saved or sent anywhere. No account, no tracking.</p>
+  </section>
+
+  <section>
+    <h2>Questions</h2>
+    <details>
+      <summary>How do I change the key of a song on Spotify on a Mac?</summary>
+      <p>Open PitchTap from the menu bar, choose <b>Spotify</b> as the source, and press <b>−</b> or <b>+</b>. Each step is one semitone. Spotify keeps playing at its normal speed, just in the new key. The same works for Apple Music, YouTube in any browser, or any other app.</p>
+    </details>
+    <details>
+      <summary>Can I change the pitch without changing the tempo?</summary>
+      <p>Yes, that's all PitchTap does. The pitch moves up to an octave either way (±12 semitones, plus ±50 cents for fine tuning), and the speed never changes.</p>
+    </details>
+    <details>
+      <summary>Which apps does it work with?</summary>
+      <p>Any app that plays sound: Spotify, Apple Music, Safari, Chrome, YouTube, video calls, or all system audio at once. You can shift one app and leave everything else alone.</p>
+    </details>
+    <details>
+      <summary>Is it really free?</summary>
+      <p>Yes. PitchTap is open source under the GPL-3.0 licence, with no ads, account or in-app purchases. It updates itself.</p>
+    </details>
+    <details>
+      <summary>macOS says it can't verify PitchTap. Is that safe?</summary>
+      <p>That warning appears because PitchTap isn't signed with a paid Apple developer certificate. Click <b>Done</b>, then <b>Open Anyway</b> in System Settings › Privacy &amp; Security. You only do this once. <a href="https://github.com/gkudva96/pitchtap#%EF%B8%8F-download">Step-by-step guide</a>.</p>
+    </details>
+  </section>
+
+  <footer>
+    PitchTap is free software under the <a href="https://github.com/gkudva96/pitchtap/blob/main/LICENSE">GPL-3.0</a>.
+    <a href="https://github.com/gkudva96/pitchtap">GitHub</a> · <a href="https://github.com/gkudva96/pitchtap/releases">Releases</a> · <a href="https://github.com/gkudva96/pitchtap/issues">Report a problem</a>
+  </footer>
+</main>
+</body>
+</html>
