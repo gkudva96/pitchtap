@@ -53,8 +53,8 @@ private struct WelcomeView: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 Step(number: 1, text: "Click the icon to open the controls.")
-                Step(number: 2, text: "Switch on **Pitch shift**, choose a **Source** such as Spotify, and move the "
-                    + "**Semitones** slider.")
+                Step(number: 2, text: "Flip the switch on, choose a **Source** such as Spotify, and change the "
+                    + "**Key** with − and +.")
                 Step(number: 3, text: "The first time, macOS asks to record system audio. Click **Allow**. PitchTap "
                     + "only changes the sound as it plays; nothing is recorded, saved or sent.")
             }

@@ -49,7 +49,10 @@ final class AppModel: ObservableObject {
         enabled = UserDefaults.standard.bool(forKey: Self.enabledKey)
         params = PitchParams.load()
         source = AudioSource.load()
-        engine.onStatus = { [weak self] status in self?.status = status }
+        // Publish only real changes: each publish rebuilds the open menu panel, which closes any submenu.
+        engine.onStatus = { [weak self] status in
+            if self?.status != status { self?.status = status }
+        }
         engine.update(params)
         engine.setSource(source)
         engine.setEnabled(enabled)
@@ -67,7 +70,8 @@ final class AppModel: ObservableObject {
     }
 
     func refreshApps() {
-        apps = AudioApps.list()
+        let current = AudioApps.list()
+        if current != apps { apps = current }
     }
 
     func setLaunchesAtLogin(_ on: Bool) {
@@ -89,7 +93,7 @@ final class AppModel: ObservableObject {
         params = PitchParams()
     }
 
-    private func nudge(by step: Int) {
+    func nudge(by step: Int) {
         hearingOriginal = false
         params.semitones = (params.semitones + step).clamped(to: PitchParams.semitoneRange)
         if !enabled { enabled = true }
