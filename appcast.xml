@@ -6,6 +6,18 @@
     <link>https://github.com/gkudva96/pitchtap</link>
     <language>en</language>
     <item>
+      <title>PitchTap 0.4.2</title>
+      <pubDate>Sat, 24 Oct 2026 17:48:21 +0000</pubDate>
+      <sparkle:version>6</sparkle:version>
+      <sparkle:shortVersionString>0.4.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.4</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul>
+        <li>Cleaner sound when shifting: cymbals, hi-hats and other bright sounds no longer turn metallic or swirly.</li>
+      </ul>]]></description>
+      <enclosure url="https://github.com/gkudva96/pitchtap/releases/download/v0.4.2/PitchTap.zip"
+                 type="application/octet-stream" sparkle:edSignature="udOvpYJkzfp+yfwJFoJDoUWV/pndoMeUSl+TUK5IPWeXz7E5eL1vuePt65ArIurorzYvYGUDr2J/ahUJHlAJCQ==" length="2057413"/>
+    </item>
+    <item>
       <title>PitchTap 0.4.1</title>
       <pubDate>Fri, 23 Oct 2026 15:43:30 +0000</pubDate>
       <sparkle:version>5</sparkle:version>
