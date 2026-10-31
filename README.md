@@ -5,7 +5,7 @@
 <h1 align="center">PitchTap</h1>
 
 <p align="center">
-  <b>Change the key of any song on your Mac. Same tempo.</b><br>
+  <b>Change the pitch of any song on your Mac. Same tempo.</b><br>
   Live, for Spotify, Apple Music, YouTube, a video call, or your whole Mac.<br>
   <a href="https://gkudva96.github.io/pitchtap/">Website</a> · <a href="https://github.com/gkudva96/pitchtap/releases/latest">Download</a>
 </p>
