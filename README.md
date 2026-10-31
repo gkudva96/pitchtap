@@ -26,7 +26,7 @@ PitchTap is a free, open-source **pitch shifter and key changer for macOS**. It 
 - 🎧 **Just for fun.** Hear a song an octave lower, or retune to A = 432 Hz.
 
 <p align="center">
-  <img src="docs/menu.png" width="340" alt="PitchTap menu: switched on and shifting Spotify, key +3 (a minor 3rd up) with the A = 432 Hz tuning, Original and Shifted buttons, and a settings gear">
+  <img src="docs/menu.png" width="340" alt="PitchTap menu: switched on and shifting Spotify, key −3 (a minor 3rd down) with standard tuning, Original and Shifted buttons, and a settings gear">
 </p>
 
 > **What's a semitone?** It's one key on a piano. **+1** moves everything up one key, **+12** a whole octave. **Cents** are for fine tuning: 100 cents make one semitone.
