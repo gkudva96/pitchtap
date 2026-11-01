@@ -93,6 +93,8 @@
   summary { cursor: pointer; font-weight: 600; }
   details p { margin: 8px 0 0; }
   footer { border-top: 1px solid var(--line); margin-top: 56px; padding-top: 20px; color: var(--muted); font-size: 14px; text-align: center; }
+  .badge { display: inline-block; margin-top: 16px; }
+  .badge img { display: block; width: 171px; height: auto; }
 </style>
 </head>
 <body>
@@ -150,6 +152,13 @@
   <footer>
     PitchTap is free software under the <a href="https://github.com/gkudva96/pitchtap/blob/main/LICENSE">GPL-3.0</a>.
     <a href="https://github.com/gkudva96/pitchtap">GitHub</a> · <a href="https://github.com/gkudva96/pitchtap/releases">Releases</a> · <a href="https://github.com/gkudva96/pitchtap/issues">Report a problem</a>
+    <br>
+    <a class="badge" href="https://alternativeto.net/software/pitchtap/about/?utm_source=badge&amp;utm_medium=referral" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="alternativeto-dark.svg" media="(prefers-color-scheme: dark)">
+        <img src="alternativeto-light.svg" width="171" height="58" loading="lazy" alt="PitchTap on AlternativeTo">
+      </picture>
+    </a>
   </footer>
 </main>
 </body>
