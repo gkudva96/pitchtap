@@ -118,21 +118,47 @@ Click the menu-bar icon to open the controls:
 | *Waiting for Spotify to play audio…* | The chosen app is closed or hasn't made a sound yet. Press play. |
 | *Nothing playing from …* | PitchTap is ready, but no sound is coming in. See troubleshooting below. |
 
+If you enjoy PitchTap, a ⭐ on GitHub helps other people find it.
+
 ---
 
 ## ❓ FAQ
 
-**How do I change the key of a song on Spotify on a Mac?**
-Open PitchTap from the menu bar, choose **Spotify** as the source, and press **−** or **+**. Each step is one semitone, and Spotify keeps playing at its normal speed. The same works for Apple Music, YouTube in any browser, or any other app.
+<details>
+<summary><b>How do I change the pitch of a song on Spotify on a Mac?</b></summary>
 
-**Can I change the pitch without changing the tempo?**
+Open PitchTap from the menu bar, choose **Spotify** as the source, and press **−** or **+**. Each step is one semitone (musicians: that changes the key), and Spotify keeps playing at its normal speed. The same works for Apple Music, YouTube in any browser, or any other app.
+</details>
+
+<details>
+<summary><b>Can I change the pitch without changing the tempo?</b></summary>
+
 Yes, that's all PitchTap does: up to an octave either way (±12 semitones, plus ±50 cents for fine tuning), with the speed unchanged.
+</details>
 
-**Which apps does it work with?**
+<details>
+<summary><b>Which apps does it work with?</b></summary>
+
 Any app that plays sound, or all system audio at once. See [Choosing a source](#%EF%B8%8F-choosing-a-source).
+</details>
 
-**Is it free?**
+<details>
+<summary><b>Which Macs does it run on?</b></summary>
+
+Macs with Apple silicon (M1 or newer) on macOS 14.4 or later. 14.4 is the version that added the audio taps PitchTap is built on. Intel Macs aren't supported yet.
+</details>
+
+<details>
+<summary><b>Does it record or upload my audio?</b></summary>
+
+No. The sound is shifted on your Mac as it plays and is never recorded or sent anywhere. The only thing PitchTap fetches from the internet is its update check.
+</details>
+
+<details>
+<summary><b>Is it free?</b></summary>
+
 Yes. PitchTap is open source under the [GPL-3.0](LICENSE), with no ads, account or in-app purchases, and it [updates itself](#%EF%B8%8F-download).
+</details>
 
 ---
 
