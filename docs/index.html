@@ -88,6 +88,7 @@
   .uses { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 12px; padding: 0; list-style: none; }
   .uses li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
   .uses b { display: block; margin-bottom: 4px; }
+  #privacy .uses { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
   figure { margin: 32px 0 0; text-align: center; }
   figure img { width: 100%; max-width: 340px; height: auto; }
   figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
@@ -125,9 +126,16 @@
     </figure>
   </section>
 
-  <section>
+  <section id="privacy">
     <h2>Private by design</h2>
     <p>Your audio is changed on your own Mac as it plays. Nothing is recorded, saved or sent anywhere. No account, no tracking.</p>
+    <ul class="uses">
+      <li><b>🎧 Your audio</b>macOS asks for audio recording permission because that's how PitchTap hears the app you choose. The sound is shifted and played straight back, never stored.</li>
+      <li><b>🌐 Internet use</b>PitchTap only goes online to check for updates, about once a day, and to download one if you install it. Both go through GitHub, which sees basic request details such as your IP address.</li>
+      <li><b>⚙️ Your settings</b>Your source, pitch and other choices are saved on your Mac and nowhere else.</li>
+      <li><b>🔍 This website</b>No cookies or analytics of our own. It's hosted on GitHub Pages, and GitHub may log visits.</li>
+    </ul>
+    <p>You can check all of this in the <a href="https://github.com/gkudva96/pitchtap">source code</a>. Questions? <a href="https://github.com/gkudva96/pitchtap/issues">Open an issue</a>.</p>
   </section>
 
   <section>
@@ -156,7 +164,7 @@
 
   <footer>
     PitchTap is free software under the <a href="https://github.com/gkudva96/pitchtap/blob/main/LICENSE">GPL-3.0</a>.
-    <a href="https://github.com/gkudva96/pitchtap">GitHub</a> · <a href="https://github.com/gkudva96/pitchtap/releases">Releases</a> · <a href="https://github.com/gkudva96/pitchtap/issues">Report a problem</a>
+    <a href="https://github.com/gkudva96/pitchtap">GitHub</a> · <a href="https://github.com/gkudva96/pitchtap/releases">Releases</a> · <a href="https://github.com/gkudva96/pitchtap/issues">Report a problem</a> · <a href="#privacy">Privacy</a>
     <br>
     <a class="badge" href="https://alternativeto.net/software/pitchtap/about/?utm_source=badge&amp;utm_medium=referral" target="_blank" rel="noopener">
       <picture>
