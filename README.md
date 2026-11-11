@@ -67,7 +67,7 @@ Prefer to build it yourself? See [For developers](#-for-developers).
    | With little sound waves | PitchTap is **on** and shifting |
    | `+3`, `−2`, `+0.25`… | How far the pitch is shifted, in semitones |
 
-2. **Allow audio access once.** The first time you switch PitchTap on, macOS asks whether PitchTap may record system audio. Click **Allow**. PitchTap needs this to hear the audio before changing it. It only changes the sound as it plays: nothing is recorded, saved or sent anywhere.
+2. **Allow audio access once.** The first time you switch PitchTap on, macOS asks whether PitchTap may record system audio. Click **Allow**. "Recording" is just Apple's name for letting one app hear another app's sound; PitchTap uses it only to tap the audio and shift its pitch as it plays. Nothing is recorded, saved or sent anywhere.
 
 ---
 
@@ -151,7 +151,7 @@ Macs with Apple silicon (M1 or newer) on macOS 14.4 or later. 14.4 is the versio
 <details>
 <summary><b>Does it record or upload my audio?</b></summary>
 
-No. The sound is shifted on your Mac as it plays and is never recorded or sent anywhere. The only thing PitchTap fetches from the internet is its update check.
+No. macOS calls the permission "audio recording" because that's how Apple names access to another app's sound, but PitchTap uses it only to tap the audio: the sound goes in, is shifted on your Mac, and plays straight back out. It's never saved to disk or sent to any server. The only thing PitchTap fetches from the internet is its update check.
 </details>
 
 <details>
