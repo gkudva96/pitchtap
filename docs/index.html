@@ -96,8 +96,8 @@
   summary { cursor: pointer; font-weight: 600; }
   details p { margin: 8px 0 0; }
   footer { border-top: 1px solid var(--line); margin-top: 56px; padding-top: 20px; color: var(--muted); font-size: 14px; text-align: center; }
-  .badge { display: inline-block; margin-top: 16px; }
-  .badge img { display: block; width: 171px; height: auto; }
+  .badge { display: inline-block; margin: 16px 6px 0; vertical-align: middle; }
+  .badge img { display: block; max-width: 100%; height: auto; }
 </style>
 </head>
 <body>
@@ -170,6 +170,12 @@
       <picture>
         <source srcset="alternativeto-dark.svg" media="(prefers-color-scheme: dark)">
         <img src="alternativeto-light.svg" width="171" height="58" loading="lazy" alt="PitchTap on AlternativeTo">
+      </picture>
+    </a>
+    <a class="badge" href="https://macpip.com/apps/pitchtap?ref=badge" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="macpip-dark.svg" media="(prefers-color-scheme: dark)">
+        <img src="macpip-light.svg" width="190" height="52" loading="lazy" alt="Listed on MacPip">
       </picture>
     </a>
   </footer>
