@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="round" data-ground="sage" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PitchTap: Free Pitch Shifter &amp; Key Changer for Mac</title>
+<meta name="description" content="Change the pitch of any song on your Mac, live, without changing the tempo. Free, open-source menu-bar app for Spotify, Apple Music, YouTube and more.">
+<link rel="canonical" href="https://gkudva96.github.io/pitchtap/">
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14173a" media="(prefers-color-scheme: dark)">
+<meta name="google-site-verification" content="WVuoLJjO2rxR-uW3A3D1odLWdgeCQgdozu0dflA138Q">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PitchTap">
+<meta property="og:title" content="PitchTap: Free Pitch Shifter &amp; Key Changer for Mac">
+<meta property="og:description" content="Change the pitch of any song on your Mac, live, without changing the tempo. Free and open source.">
+<meta property="og:url" content="https://gkudva96.github.io/pitchtap/">
+<meta property="og:image" content="https://gkudva96.github.io/pitchtap/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="PitchTap logo and tagline">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PitchTap",
+  "description": "Free, open-source Mac menu-bar app that changes the pitch of any app's audio, or all system audio, live, without changing the tempo.",
+  "url": "https://gkudva96.github.io/pitchtap/",
+  "image": "https://gkudva96.github.io/pitchtap/logo.png",
+  "screenshot": "https://gkudva96.github.io/pitchtap/menu.png",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "macOS 14.4 or later (Apple silicon)",
+  "downloadUrl": "https://github.com/gkudva96/pitchtap/releases/latest/download/PitchTap.zip",
+  "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "gkudva96", "url": "https://github.com/gkudva96" },
+  "codeRepository": "https://github.com/gkudva96/pitchtap"
+}
+</script>
+
+<!-- fonts are self-hosted (fonts/fonts.css), so a visit sends nothing to Google -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<link rel="stylesheet" href="assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #f6f5f1; --p-surface: #e9e9e7; --p-ink: #14173a; --p-muted: #60647c;
+  --p-accent: #262966; --p-accent-ink: #f6f5f1; --p-action: #262966; --p-action-ink: #f6f5f1;
+  --p-inv-bg: #14173a; --p-inv-surface: #202446; --p-inv-ink: #f6f5f1; --p-inv-muted: #9699a8;
+  --p-inv-accent: #f6f5f1; --p-inv-accent-ink: #14173a; --p-inv-action: #f6f5f1; --p-inv-action-ink: #14173a;
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-text: "Outfit", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.03em;
+  --display-tracking-xl: -0.04em;
+}
+/* the evening grade, chosen once on load from the system setting: the page takes the palette's inverse set */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --p-bg: #14173a; --p-surface: #202446; --p-ink: #f6f5f1; --p-muted: #a9abbb;
+    --p-accent: #f5a84d; --p-accent-ink: #14173a; --p-action: #f5a84d; --p-action-ink: #14173a;
+  }
+}
+</style>
+<link rel="stylesheet" href="assets/ui/base.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/liquid-type/moment.js">
+
+<!-- page CSS: only what sits inside a visual (the PitchTap menu, drawn as live HTML), one --p-h per card group, and the clap -->
+<style>
+  .nav__logo img { width: 28px; height: 28px; }
+
+  /* --- the PitchTap menu, as the app draws it (macOS dark material) --- */
+  .pt { --pt-bg: #1d1f2b; --pt-card: rgb(255 255 255 / .06); --pt-line: rgb(255 255 255 / .08); --pt-ink: #f2f2f5; --pt-muted: #b6b9c6; --pt-blue: #2563eb;
+        background: var(--pt-bg); color: var(--pt-ink); border-radius: 18px; padding: 18px; font: 400 14px/1.35 var(--font-text);
+        box-shadow: 0 0 0 1px rgb(255 255 255 / .1), 0 30px 70px -30px rgb(0 0 0 / .7); text-align: left; }
+  .pt__head { display: flex; align-items: center; justify-content: space-between; }
+  .pt__name { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 16px; }
+  .pt__name img { width: 22px; height: 22px; }
+  .pt__switch { width: 46px; height: 26px; border-radius: 99px; background: var(--pt-blue); position: relative; flex: none; }
+  .pt__switch::after { content: ""; position: absolute; right: 3px; top: 3px; width: 28px; height: 20px; border-radius: 99px; background: #e6ebff; }
+  .pt__status { display: flex; align-items: center; gap: 7px; margin: 6px 0 12px; color: var(--pt-muted); font-size: 13px; }
+  .pt__status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #34c759; flex: none; }
+  .pt__card { background: var(--pt-card); border-radius: 12px; padding: 12px 14px; margin-top: 10px; }
+  .pt__label { color: var(--pt-muted); font-size: 13px; font-weight: 500; margin: 0 0 8px; display: flex; justify-content: space-between; }
+  .pt__pick { display: inline-flex; align-items: center; gap: 10px; background: rgb(255 255 255 / .08); border-radius: 8px; padding: 6px 12px; font-size: 15px; }
+  .pt__pick img { width: 22px; height: 22px; }
+  .pt__key { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; text-align: center; }
+  .pt__step { width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgb(255 255 255 / .09); color: var(--pt-ink); font: 400 24px/1 var(--font-text); display: grid; place-items: center; padding: 0; }
+  button.pt__step { cursor: pointer; }
+  button.pt__step:hover { background: rgb(255 255 255 / .16); }
+  .pt__num { font: 500 34px/1 var(--font-text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .pt__desc { color: var(--pt-muted); font-size: 13px; text-align: center; margin: 6px 0 10px; min-height: 18px; }
+  .pt__track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / .1); position: relative; margin: 0 4px 14px; }
+  .pt__track i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 99px; background: var(--pt-blue); width: var(--pt-fill, 41.6%); }
+  .pt__track b { position: absolute; top: 50%; left: var(--pt-fill, 41.6%); width: 26px; height: 18px; margin: -9px 0 0 -13px; border-radius: 99px; background: #e9e9ee; }
+  .pt__ab { display: flex; justify-content: center; }
+  .pt__ab span, .pt__ab label { position: relative; border: 0; font: 400 14px/1 var(--font-text); padding: 6px 12px; color: var(--pt-ink); background: rgb(255 255 255 / .08); }
+  .pt__ab input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .pt__ab label:focus-within { outline: 2px solid #fff; outline-offset: 1px; z-index: 1; }
+  .pt__ab :first-child { border-radius: 8px 0 0 8px; } .pt__ab :last-child { border-radius: 0 8px 8px 0; }
+  .pt__ab .is-on { background: var(--pt-blue); }
+  .pt__ab label { cursor: pointer; }
+  .pt__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .pt__row small { color: var(--pt-muted); font-size: 13px; }
+  .pt__foot { display: flex; justify-content: space-between; color: var(--pt-muted); font-size: 13px; margin-top: 12px; }
+
+  /* the hero: the Mac's menu bar runs across the frame and is cut by its right edge; the menu hangs under PitchTap's item */
+  .hero__art[data-fx] { --calm-k: 0%; }
+  .pt-bar { left: 0; top: var(--s-7); width: calc(100% + var(--ly-cut)); height: 34px; display: flex; align-items: center; gap: 18px; padding: 0 var(--ly-cut-room) 0 var(--s-6);
+            background: rgb(20 22 34 / .55); color: #fff; font: 500 14px/1 var(--font-text); }
+  .pt-bar__item { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 8px; background: rgb(255 255 255 / .18); }
+  .pt-bar__item img { width: 16px; height: 16px; }
+  .pt-bar__glyph { width: 16px; height: 12px; border: 1.6px solid rgb(255 255 255 / .85); border-radius: 3px; opacity: .8; }
+  .hero__art > .pt { left: var(--s-8); top: calc(var(--s-7) + 46px); width: 340px; }
+  .hero__art > .ly-piece--note { left: auto; right: var(--s-6); bottom: var(--s-6); width: 272px; z-index: 2; }
+  .pt-note { background: #fff; color: #16181a; border-radius: 12px; padding: 14px 16px; font: 400 14px/1.4 var(--font-text); box-shadow: 0 0 0 1px rgb(0 0 0 / .06), 0 20px 40px -20px rgb(0 0 0 / .45); }
+  .pt-note h3 { margin: 0 0 4px; font: 500 15px/1.3 var(--font-text); letter-spacing: 0; display: flex; justify-content: space-between; align-items: center; }
+  .pt-note__chip { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 99px; font-size: 13px; font-weight: 500; background: #e7f4ec; color: #17673f; }
+  .pt-note__chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .pt-note__line { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 13px; color: #3d4247; border-top: 1px solid rgb(0 0 0 / .06); }
+  .pt-note__line:first-of-type { border-top: 0; }
+  .pt-note__line i { width: 18px; height: 18px; border-radius: 50%; flex: none; display: grid; place-items: center; background: #e7f4ec; color: #17673f; font-style: normal; font-size: 12px; }
+  .pt-note__line b { font-weight: 500; color: #16181a; }
+  .hero__proof { font-size: var(--t-small); color: var(--muted); margin-top: var(--s-5); }
+  .listed { margin-top: var(--s-7); }
+  .listed .t-label { color: var(--muted); margin: 0 0 var(--s-3); }
+  .listed__row { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+  .listed__row img { display: block; height: 40px; width: auto; }
+  @media (min-width: 1024px) { .listed__row { display: grid; grid-template-columns: repeat(2, max-content); gap: var(--s-4); } .listed__row img { height: 48px; } }
+  @media (min-width: 1024px) and (max-width: 1279px) { .listed__row img { height: 44px; } }
+  @media (max-width: 1023px) { .hero__art > .pt { left: var(--s-6); } }
+  @media (max-width: 639px) { .hero__art > .pt { left: var(--s-4); top: calc(var(--s-6) + 46px); width: 300px; } .pt-bar { padding-left: var(--s-4); } .listed { display: none; } }
+
+  /* the app frame: the source list beside the open menu, both live */
+  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+  .app > .app__pane--list::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+  .src { list-style: none; margin: 0; padding: var(--s-3); }
+  .src__bar { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-4) var(--s-5); border-bottom: 1px solid var(--u-line); font: 500 14px/1 var(--font-text); color: var(--u-muted, #6b6f7b); }
+  .src__bar .ui-dots { margin-right: var(--s-2); }
+  .src button { width: 100%; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; align-items: center; gap: var(--s-3); padding: 12px var(--s-3); border: 0; border-radius: 10px; background: none; color: inherit; font: 400 15px/1.3 var(--font-text); text-align: left; cursor: pointer; min-height: 56px; }
+  .src button:hover { background: color-mix(in oklab, var(--u-ink, #16181a) 5%, transparent); }
+  .src button[aria-pressed="true"] { background: color-mix(in oklab, var(--p-action) 10%, transparent); }
+  .src b { display: block; font-weight: 500; }
+  .src small { color: var(--u-muted, #6b6f7b); font-size: 13px; }
+  .src__ic { width: 36px; height: 36px; border-radius: 9px; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / .08); display: grid; place-items: center; }
+  .src__ic img { width: 24px; height: 24px; }
+  .src__ic--all { background: #262966; color: #fff; font-size: 17px; box-shadow: none; }
+  .src__tick { color: var(--p-action); font-weight: 600; visibility: hidden; }
+  .src button[aria-pressed="true"] .src__tick { visibility: visible; }
+  .app__pane--open { display: grid; place-items: start center; padding: var(--s-7) var(--s-5); background: color-mix(in oklab, var(--ground-bg) 70%, var(--u-bg)); }
+  .app__pane--open .pt { width: min(100%, 380px); }
+  /* the card never crops: when the window is short it drops its least important parts (full card ~524px, without hint ~441, without tuning ~364) */
+  .app__pane--open { container: ptpane / size; }
+  @container ptpane (max-height: 545px) { .pt__hint { display: none; } }
+  @container ptpane (max-height: 455px) { .pt__extra { display: none; } }
+  @container ptpane (max-height: 378px) { .pt__card:has(.pt__pick) { display: none; } }
+  .pt__hint { margin-top: 10px; background: rgb(255 255 255 / .06); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--pt-muted); min-height: 54px; }
+  /* Star on GitHub: the tonal secondary button needs an ink outline to stand off the ground (was 1.19:1) */
+  html[data-buttons] .btn.btn--secondary { border-color: color-mix(in oklab, var(--ink) 38%, transparent); }
+  html[data-buttons] .btn.btn--secondary:hover { border-color: color-mix(in oklab, var(--ink) 60%, transparent); }
+  .pt__hint:empty { visibility: hidden; } /* no hint at the original key: keep the space (no jump), hide the empty box */
+  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+  @media (max-width: 1023px) {
+    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    .app > .app__pane--list::after { display: none; }
+    .src { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+    .src li { flex: 1 1 0; min-width: 0; }
+    .src button { grid-template-columns: 36px minmax(0, 1fr); min-height: 52px; padding: 8px; }
+    .src small, .src__tick { display: none; }
+    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+    .pt__extra { display: none; }
+  }
+  @media (max-width: 639px) {
+    .src__bar { display: none; }
+    .src button { grid-template-columns: 1fr; justify-items: center; min-height: 52px; }
+    .src b { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .app__pane--open { padding: var(--s-4); }
+  }
+
+  /* setup cards: one panel height for the group */
+  #install .panel { --p-h: 300px; }
+  #install .panel img.shot { position: absolute; left: 50%; top: var(--s-6); width: 260px; height: auto; margin-left: -130px; border-radius: 14px; box-shadow: 0 20px 40px -20px rgb(0 0 0 / .4); }
+  #install .stage .pt { width: 300px; }
+  @media (max-width: 639px) { #install .panel { --p-h: 200px; } }
+
+  /* the clap (the look of applause-button.com, counted by our own counter) */
+  #like .section-head { max-width: none; }
+  #like .mo-lt__type { font-size: clamp(64px, 11.5vw, 168px); line-height: .96; letter-spacing: var(--display-tracking-xl); margin: 0; }
+  .like-lead { margin: 0; max-width: 46ch; }
+  #like > .like-layout { justify-content: center; } /* tablet/phone: centre the stack in the screen-tall section */
+  @media (max-width: 639px) { /* phone: a third of the way down, so this heading and the footer's never share a screen */
+    #like > .like-layout { justify-content: flex-start; }
+    #like > .like-layout::before { content: ""; flex: 1 1 0; }
+    #like > .like-layout::after { content: ""; flex: 4 1 0; }
+  }
+  /* desktop: headline + lead on the left, the clap level with the headline in the empty right half */
+  @media (min-width: 1024px) {
+    #like > .like-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--gutter); align-items: center; align-content: center; }
+    .like-layout > .section-head { grid-column: 1; grid-row: 1; }
+    .like-layout > .like-lead { grid-column: 1; grid-row: 2; }
+    .like-layout > .clap-row { grid-column: 2; grid-row: 1; justify-self: center; align-items: center; text-align: center; }
+  }
+  .clap-row { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-4); }
+  @media (max-width: 1023px) { .clap-row { margin-top: var(--s-6); } }
+  /* setup: two screens where its three cards stack (the kit puts span-4 panel cards two-up from 1024 to 1279) */
+  @media (min-width: 640px) and (max-width: 1023px) { #like .mo-lt__type { font-size: 19vw; } }
+  #install { --hm: 2; }
+  @media (min-width: 640px) and (max-width: 1279px) { #install { --h: 2; } }
+  @media (min-width: 1024px) and (max-width: 1279px) { #faq .grid > .span-5 { grid-column: 1 / span 4; } #faq .faq { grid-column: 5 / -1; } }
+  .clap { position: relative; flex: none; width: 112px; height: 112px; border-radius: 50%; border: 1.5px solid color-mix(in oklab, var(--ink) 22%, transparent); background: var(--bg); color: var(--ink); font-size: 36px; line-height: 1; display: grid; place-items: center; cursor: pointer; padding: 0; transition: border-color .2s, background-color .2s; }
+  .clap:hover { border-color: var(--action); }
+  .clap:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; }
+  .clap[aria-pressed="true"] { background: var(--action); border-color: var(--action); cursor: default; }
+  .clap__ring { position: absolute; inset: -2px; border-radius: 50%; border: 2px solid #f5a84d; opacity: 0; pointer-events: none; }
+  .clap__spark { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: #f5a84d; opacity: 0; pointer-events: none; transform: rotate(var(--a)) translateY(0); }
+  .clap__plus { position: absolute; left: 50%; top: -6px; transform: translate(-50%, 0); font: 500 15px/1 var(--font-text); background: var(--action); color: var(--action-ink, #fff); border-radius: 99px; padding: 5px 9px; opacity: 0; pointer-events: none; }
+  .clap.is-clapping { animation: clap-pop .32s cubic-bezier(.3, 1.6, .5, 1); }
+  .clap.is-clapping .clap__ring { animation: clap-ring .5s ease-out; }
+  .clap.is-clapping .clap__spark { animation: clap-spark .55s ease-out; }
+  .clap.is-clapping .clap__plus { animation: clap-plus .8s ease-out; }
+  @keyframes clap-pop { 0% { transform: scale(1); } 40% { transform: scale(1.18); } 100% { transform: scale(1); } }
+  @keyframes clap-ring { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(1.5); } }
+  @keyframes clap-spark { 0% { opacity: 1; transform: rotate(var(--a)) translateY(-40px); } 100% { opacity: 0; transform: rotate(var(--a)) translateY(-68px); } }
+  @keyframes clap-plus { 0% { opacity: 0; transform: translate(-50%, 0); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -44px); } }
+  @media (prefers-reduced-motion: reduce) { .clap.is-clapping, .clap.is-clapping * { animation: none !important; } }
+  .clap-text p { margin: 0; }
+  .clap-text .clap-label { font: 500 var(--t-lead)/1.3 var(--font-text); }
+  .clap-count { color: var(--muted); margin-top: var(--s-2) !important; font-variant-numeric: tabular-nums; }
+  .clap-count:empty { display: none; }
+  #like:target .clap:not([aria-pressed="true"]) { animation: clap-call 1.2s ease-out 2; }
+  @keyframes clap-call { 0%, 100% { box-shadow: 0 0 0 0 rgb(245 168 77 / 0); } 30% { box-shadow: 0 0 0 10px rgb(245 168 77 / .35); } }
+  .nav-clap { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; font: inherit; color: inherit; cursor: pointer; padding: 0; }
+  .nav-clap[aria-pressed="true"] { cursor: default; }
+  .nav__actions .offstage { display: none; }
+  @media (max-width: 1023px) { #faq .t-lead { display: none; } }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .closing__links .grid > .span-6 { grid-column: 1 / -1; }
+    .closing__links .grid > .footer__col { grid-column: auto / span 4; }
+  }
+  /* a phone: the three questions asked most, so the section stays one screen; the footer without its repeats */
+  @media (max-width: 639px) {
+    #faq .faq__item.not-phone { display: none; }
+    .footer__lede, .closing__links .footer__col:first-of-type, .close--type .t-small { display: none; }
+  }
+  .hero__art .ui-pause:focus-visible { outline: 2px solid #14173a; outline-offset: 2px; }
+  .works { display: flex; gap: var(--s-3); list-style: none; margin: var(--s-2) 0 0; padding: 0; }
+  .works li { width: 56px; height: 56px; border-radius: 14px; background: #fff; box-shadow: 0 0 0 1px rgb(0 0 0 / .08); display: grid; place-items: center; }
+  .works img { width: 32px; height: auto; }
+  @media (max-width: 639px) { .works { justify-content: space-between; } .pt__num { font-size: 22px; } }
+  .pt__menu { margin-top: 8px; background: #2a2d3b; border-radius: 10px; padding: 6px; display: grid; gap: 2px; font-size: 14px; box-shadow: 0 0 0 1px rgb(255 255 255 / .1); }
+  .pt__menu span { padding: 6px 10px; border-radius: 6px; }
+  .pt__menu .is-on { background: #2563eb; }
+  /* the footer slab keeps the page's own button; in the evening grade the slab goes dark with it */
+  .footer--statement { --action: var(--p-action); --action-ink: var(--p-action-ink); }
+  @media (prefers-color-scheme: dark) {
+    .footer--statement { --ground-bg: #202446; --ground-surface: #2a2f58; --ground-ink: #f6f5f1; --ground-muted: #b5b7c6; }
+  }
+</style>
+</head>
+<body>
+<!-- type: software (site-kind software)
+     deal: hero collage, nav nav-centre (nav-cards re-dealt: no photographs for its panel), close close-type,
+           footer footer-statement, rhythm surface-pairs, buttons tonal, mark: the client's logo (ring dealt, replaced),
+           ground sage, effect painterly-landscape in the hero frame, card grounds gradient-mesh (still)
+     palette: the client's own navy and amber from the app icon (start.mjs brand), type outfit (self-hosted)
+     moments: liquid-type in #like (its own statement section) -->
+
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="#top"><img src="logo.png" width="28" height="28" alt="">PitchTap</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item"><a class="nav__link" href="#how">Features</a></div>
+      <div class="nav__item"><a class="nav__link" href="#faq">Questions</a></div>
+      <div class="nav__item"><a class="nav__link" href="#install">Setup</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="nav__link like-link" href="#like">Clap</a>
+      <button class="nav__link nav-clap like" type="button" aria-pressed="false" aria-label="Clap for PitchTap" data-done="Clapped" hidden><span aria-hidden="true">👏</span><span class="like-label">Clap</span></button>
+      <a class="btn btn--primary" href="https://github.com/gkudva96/pitchtap/releases/latest/download/PitchTap.zip">Download for Mac</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--collage" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text grid hero__grid">
+      <div class="hero__text span-5">
+        <h1 id="hero-h">Pitch shifter for any song on your Mac</h1>
+        <p class="hero__lead">PitchTap changes the key of Spotify, Apple Music, YouTube or your whole Mac by up to 12 semitones, live. The tempo stays the same.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="https://github.com/gkudva96/pitchtap/releases/latest/download/PitchTap.zip">Download for Mac<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          <a class="btn btn--secondary" href="https://github.com/gkudva96/pitchtap">Star on GitHub</a>
+        </div>
+        <p class="hero__proof">Free and open source. macOS 14.4 or later, Apple silicon. <a class="link" href="#install">See setup</a></p>
+        <div class="listed">
+          <p class="t-label">Listed on</p>
+          <div class="listed__row">
+            <a href="https://alternativeto.net/software/pitchtap/about/?utm_source=badge&amp;utm_medium=referral" target="_blank" rel="noopener"><picture><source srcset="alternativeto-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" src="alternativeto-light.svg" width="118" height="40" alt="PitchTap on AlternativeTo"></picture></a>
+            <a href="https://macpip.com/apps/pitchtap?ref=badge" target="_blank" rel="noopener"><picture><source srcset="macpip-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" src="macpip-light.svg" width="153" height="40" alt="PitchTap launches on MacPip on Sunday, December 6"></picture></a>
+            <a href="https://macbase.app/apps/pitchtap?ref=badge" target="_blank" rel="noopener"><picture><source srcset="macbase-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" src="macbase-light.svg" width="126" height="40" alt="PitchTap is featured on MacBase"></picture></a>
+            <a href="https://macnative.io/apps/pitchtap?utm_source=macnative-badge&amp;utm_medium=referral" target="_blank" rel="noopener"><picture><source srcset="macnative-dark.svg" media="(prefers-color-scheme: dark)"><img loading="lazy" src="macnative-light.svg" width="146" height="40" alt="PitchTap is listed on MacNative"></picture></a>
+          </div>
+        </div>
+      </div>
+      <div class="hero__art span-6 start-7" role="img" aria-label="The PitchTap menu under the Mac menu bar, shifting Spotify a whole step down" data-fx="painterly-landscape" data-fx-seed="7" data-fx-palette='{"bg":"#a3b0b6","accent":"#d9a15f"}' data-fx-params='{"blur":1,"brush":0.35,"slope":0,"hillY":0.3,"horizon":0.62,"calm":0.2,"calmX":0.3,"calmY":0.4,"drift":0.01,"side":1}'>
+        <div class="ly-piece ly-piece--main pt-bar" aria-hidden="true">
+          <span class="pt-bar__item"><img width="24" height="24" src="logo.png" alt="">−2</span><span class="pt-bar__glyph"></span><span>Sat 14:20</span>
+        </div>
+        <div class="ly-piece pt ui-pt" aria-hidden="true">
+          <div class="pt__head"><span class="pt__name"><img width="24" height="24" src="logo.png" alt="">PitchTap</span><span class="pt__switch"></span></div>
+          <div class="pt__status">Shifting Spotify → MacBook Pro Speakers</div>
+          <div class="pt__card"><p class="pt__label">Source</p><span class="pt__pick"><img width="24" height="24" src="assets/icons/spotify.svg" alt="">Spotify</span></div>
+          <div class="pt__card">
+            <p class="pt__label">Key</p>
+            <div class="pt__key"><span class="pt__step">−</span><span class="pt__num">−2</span><span class="pt__step">+</span></div>
+            <p class="pt__desc">Whole step down</p>
+            <div class="pt__track" style="--pt-fill: 41.6%"><i></i><b></b></div>
+            <div class="pt__ab"><span>Original</span><span class="is-on">Shifted</span></div>
+          </div>
+        </div>
+        <div class="ly-piece ly-piece--note pt-note" aria-hidden="true" data-ly-steps="560">
+          <h3>Spotify <span class="pt-note__chip" data-step data-step-at="4">Shifting</span></h3>
+          <div class="pt-note__line" data-step><i>✓</i><span>Key <b>2 semitones down</b></span></div>
+          <div class="pt-note__line" data-step><i>✓</i><span>Tempo <b>unchanged</b></span></div>
+          <div class="pt-note__line" data-step><i>✓</i><span>Other apps <b>untouched</b></span></div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <h2 class="span-5" id="how-h">One app or the whole Mac, moved by semitones</h2>
+        <p class="span-6 start-7 t-lead muted">Pick the app you hear, then press − or +. Each press is one semitone, up to an octave either way. Click through the silent preview below to see how it works. <a class="link" href="#faq">See questions</a></p>
+      </div>
+      <div class="ui ui-app app fill" role="group" aria-label="A preview of the PitchTap menu, without sound: pick a source, change the key">
+        <div class="app__pane app__pane--list">
+          <div class="src__bar"><span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>Source</div>
+          <ul class="src" id="src">
+            <li><button type="button" aria-pressed="false" data-src="All system audio"><span class="src__ic src__ic--all" aria-hidden="true">♫</span><span><b>All system audio</b><small>Every app at once</small></span><span class="src__tick" aria-hidden="true">✓</span></button></li>
+            <li><button type="button" aria-pressed="false" data-src="Spotify" data-ic="assets/icons/spotify.svg"><span class="src__ic"><img loading="lazy" width="24" height="24" src="assets/icons/spotify.svg" alt=""></span><span><b>Spotify</b><small>Music</small></span><span class="src__tick" aria-hidden="true">✓</span></button></li>
+            <li><button type="button" aria-pressed="false" data-src="Apple Music" data-ic="assets/icons/applemusic.svg"><span class="src__ic"><img loading="lazy" width="24" height="24" src="assets/icons/applemusic.svg" alt=""></span><span><b>Apple Music</b><small>Music</small></span><span class="src__tick" aria-hidden="true">✓</span></button></li>
+            <li><button type="button" aria-pressed="true" data-src="Safari" data-ic="assets/icons/safari.svg"><span class="src__ic"><img loading="lazy" width="24" height="24" src="assets/icons/safari.svg" alt=""></span><span><b>Safari</b><small>YouTube and other sites</small></span><span class="src__tick" aria-hidden="true">✓</span></button></li>
+            <li><button type="button" aria-pressed="false" data-src="Google Chrome" data-ic="assets/icons/chrome.svg"><span class="src__ic"><img loading="lazy" width="24" height="24" src="assets/icons/chrome.svg" alt=""></span><span><b>Google Chrome</b><small>YouTube and other sites</small></span><span class="src__tick" aria-hidden="true">✓</span></button></li>
+          </ul>
+        </div>
+        <div class="app__pane app__pane--open">
+          <div class="pt ui-pt" id="live">
+            <div class="pt__head"><span class="pt__name"><img loading="lazy" width="24" height="24" src="logo.png" alt="">PitchTap</span><span class="pt__switch" aria-hidden="true"></span></div>
+            <div class="pt__status" data-live="status">Shifting Safari → MacBook Pro Speakers</div>
+            <div class="pt__card"><p class="pt__label">Source</p><span class="pt__pick"><img loading="lazy" width="24" height="24" data-live="ic" src="assets/icons/safari.svg" alt=""><span data-live="src">Safari</span></span></div>
+            <div class="pt__card">
+              <p class="pt__label">Key</p>
+              <div class="pt__key"><button class="pt__step" type="button" data-live="down" aria-label="One semitone down">−</button><span class="pt__num" data-live="num" aria-live="polite">+2</span><button class="pt__step" type="button" data-live="up" aria-label="One semitone up">+</button></div>
+              <p class="pt__desc" data-live="desc">Whole step up</p>
+              <div class="pt__track" data-live="track" style="--pt-fill: 58.3%" aria-hidden="true"><i></i><b></b></div>
+              <div class="pt__ab" role="radiogroup" aria-label="Listen to"><label data-live="orig"><input type="radio" name="ab" value="orig">Original</label><label class="is-on" data-live="shift"><input type="radio" name="ab" value="shift" checked>Shifted</label></div>
+            </div>
+            <div class="pt__card pt__extra"><div class="pt__row"><span class="pt__label" style="margin:0">Tuning</span><small>Standard (A = 440 Hz)</small></div><div class="pt__row" style="margin-top:8px"><small>Fine tune</small><small>0 cents</small></div></div>
+            <p class="pt__hint pt__extra" data-live="hint">Playing along on guitar, ukulele or another fretted instrument: capo 2 with the original chord shapes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5 stack-4">
+          <h2 id="faq-h">Questions</h2>
+          <p class="t-lead muted">What people ask before they install it.</p>
+          <ul class="works" aria-label="Works with">
+            <li><img loading="lazy" src="assets/icons/spotify.svg" alt="Spotify" width="40" height="40"></li><li><img loading="lazy" src="assets/icons/applemusic.svg" alt="Apple Music" width="40" height="40"></li><li><img loading="lazy" src="assets/icons/safari.svg" alt="Safari" width="40" height="40"></li><li><img loading="lazy" src="assets/icons/chrome.svg" alt="Chrome" width="40" height="40"></li><li><img loading="lazy" src="assets/icons/youtube.svg" alt="YouTube" width="40" height="28"></li>
+          </ul>
+          <p><a class="link" href="privacy.html">See privacy notes</a></p>
+        </div>
+        <div class="faq span-6 start-7">
+          <div class="faq__item"><h3>How do I change the key of a song on Spotify?</h3><p>Pick Spotify as the source and press − or +. Each step is one semitone.</p></div>
+          <div class="faq__item"><h3>Can I change the pitch without changing the tempo?</h3><p>Yes. Up to 12 semitones either way, plus 50 cents of fine tuning, at the same speed.</p></div>
+          <div class="faq__item not-phone"><h3>Which apps does it work with?</h3><p>Any app that plays sound, a video call too, or all sound on your Mac at once.</p></div>
+          <div class="faq__item not-phone"><h3>Does PitchTap put video out of sync?</h3><p>Slightly: the shift takes about 0.15 seconds, so lips can move a moment early.</p></div>
+          <div class="faq__item"><h3>Is PitchTap free?</h3><p>Yes. It is open source under GPL-3.0, with no ads, account or in-app purchases.</p></div>
+          <div class="faq__item"><h3>Does PitchTap record or upload my audio?</h3><p>No. The sound is shifted on your Mac and played straight back. It goes online only to check for updates.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="install" aria-labelledby="install-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="install-h">PitchTap setup in 3 steps</h2>
+        <p>PitchTap isn't signed with a paid Apple certificate yet, so macOS asks once. <a class="link" href="https://github.com/gkudva96/pitchtap#%EF%B8%8F-download">Read the guide</a></p>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-4 m-nolift">
+          <span class="step-num">1</span>
+          <h3>Open PitchTap once from Settings</h3>
+          <p>When macOS says it can't verify PitchTap, click Done, then Open Anyway in Privacy &amp; Security.</p>
+          <div class="panel" data-fx="gradient-mesh" data-fx-seed="21" data-fx-palette='{"bg":"#cdd6c6","surface":"#dce3d6","ink":"#262d24","accent":"#6c8e63"}' data-fx-params='{"speed":0}'>
+            <img class="shot" src="gatekeeper-warning.png" width="372" height="380" loading="lazy" alt="macOS dialog: “PitchTap” Not Opened, with Move to Trash and Done buttons">
+          </div>
+        </article>
+        <article class="card card--row card--open span-4 m-nolift">
+          <span class="step-num">2</span>
+          <h3>Pick the app you hear</h3>
+          <p>Spotify, Apple Music, a browser, a video call or all sound on your Mac.</p>
+          <div class="panel" data-fx="gradient-mesh" data-fx-seed="22" data-fx-palette='{"bg":"#cdd6c6","surface":"#dce3d6","ink":"#262d24","accent":"#6c8e63"}' data-fx-params='{"speed":0}'>
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:300px;--ax:max(24px, 50% - 150px);--ay:32px;--ay-sm:16px">
+              <div class="pt ui-pt" role="img" aria-label="The PitchTap Source picker, with Apple Music chosen">
+                <div class="pt__card" style="margin:0"><p class="pt__label">Source</p><span class="pt__pick"><img loading="lazy" width="24" height="24" src="assets/icons/applemusic.svg" alt="">Apple Music</span></div>
+                <div class="pt__menu"><span>All system audio</span><span class="is-on">✓ Apple Music</span><span>Safari</span></div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-4 m-nolift">
+          <span class="step-num">3</span>
+          <h3>Press − or + to move the key</h3>
+          <p>Each press is one semitone. Tap Original to hear the song as it was.</p>
+          <div class="panel" data-fx="gradient-mesh" data-fx-seed="23" data-fx-palette='{"bg":"#cdd6c6","surface":"#dce3d6","ink":"#262d24","accent":"#6c8e63"}' data-fx-params='{"speed":0}'>
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:300px;--ax:max(24px, 50% - 150px);--ay:32px;--ay-sm:16px">
+              <div class="pt ui-pt" role="img" aria-label="The PitchTap key set to 3 semitones up, a minor 3rd">
+                <div class="pt__card" style="margin:0"><p class="pt__label">Key</p><div class="pt__key"><span class="pt__step">−</span><span class="pt__num">+3</span><span class="pt__step">+</span></div><p class="pt__desc">Minor 3rd up</p><div class="pt__ab"><span>Original</span><span class="is-on">Shifted</span></div></div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="like" aria-labelledby="like-h">
+    <div class="wrap like-layout">
+      <div class="section-head" data-moment="liquid-type">
+        <h2 class="mo-lt__type" id="like-h">A clap for<br> PitchTap</h2>
+      </div>
+      <p class="t-lead like-lead">Got it working? One person makes PitchTap in their spare time, and a clap tells them it's worth keeping.</p>
+      <div class="clap-row like-actions">
+        <button class="clap like" type="button" aria-pressed="false" aria-label="Clap for PitchTap" hidden>
+          <span aria-hidden="true">👏</span>
+          <span class="clap__ring" aria-hidden="true"></span>
+          <span class="clap__spark" style="--a:0deg" aria-hidden="true"></span><span class="clap__spark" style="--a:60deg" aria-hidden="true"></span><span class="clap__spark" style="--a:120deg" aria-hidden="true"></span><span class="clap__spark" style="--a:180deg" aria-hidden="true"></span><span class="clap__spark" style="--a:240deg" aria-hidden="true"></span><span class="clap__spark" style="--a:300deg" aria-hidden="true"></span>
+          <span class="clap__plus" aria-hidden="true">+1</span>
+        </button>
+        <div class="clap-text">
+          <p class="clap-label like-label" aria-live="polite" hidden>Clap once</p>
+          <p class="like-count clap-count"></p>
+        </div>
+        <a class="btn btn--secondary like-fallback" href="https://github.com/gkudva96/pitchtap" hidden>Star on GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--statement" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Download PitchTap for your Mac</h2>
+        <p class="t-small muted">Free, with no account or ads. It updates itself.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="https://github.com/gkudva96/pitchtap/releases/latest/download/PitchTap.zip">Download for Mac<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-6 stack-4">
+          <a class="nav__logo" href="#top"><img loading="lazy" src="logo.png" width="28" height="28" alt="">PitchTap</a>
+          <p class="footer__lede">A menu-bar app that changes the pitch of any app's sound, live.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>App</h3><ul><li><a href="#how">Features</a></li><li><a href="#install">Setup</a></li><li><a href="#faq">Questions</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Code</h3><ul><li><a href="https://github.com/gkudva96/pitchtap">GitHub</a></li><li><a href="https://github.com/gkudva96/pitchtap/releases">Releases</a></li><li><a href="https://github.com/gkudva96/pitchtap/issues">Report a problem</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Licence</h3><ul><li><a href="https://github.com/gkudva96/pitchtap/blob/main/LICENSE">GPL-3.0</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 PitchTap &nbsp; <a href="privacy.html">Privacy</a> &nbsp; Product names and logos are trademarks of their owners.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+<script>
+// The live menu in #how: the app's own wording (Params.swift): interval names and the fretted-instrument hint.
+(() => {
+  const root = document.getElementById('live'); if (!root) return;
+  const $ = (k) => root.querySelector(`[data-live="${k}"]`);
+  const NAMES = ["", "Half step", "Whole step", "Minor 3rd", "Major 3rd", "4th", "Tritone", "5th", "Minor 6th", "Major 6th", "Minor 7th", "Major 7th", "Octave"];
+  let semi = 2, orig = false, src = 'Safari'; // differs from the hero's Spotify −2 on purpose
+  const sign = (n) => (n > 0 ? '+' + n : n < 0 ? '−' + -n : '0');
+  const hint = (s) => {
+    const f = ((s % 12) + 12) % 12, p = 'Playing along on guitar, ukulele or another fretted instrument: ';
+    if (f === 0) return '';
+    return f <= 7 ? p + `capo ${f} with the original chord shapes.` : p + `tune down ${12 - f} semitone${12 - f === 1 ? '' : 's'} and use the original chord shapes.`;
+  };
+  const draw = () => {
+    $('num').textContent = sign(semi);
+    $('num').style.opacity = orig ? .45 : 1;
+    $('desc').textContent = orig ? 'Playing the original key' : semi === 0 ? 'Original key' : NAMES[Math.abs(semi)] + (semi > 0 ? ' up' : ' down');
+    $('track').style.setProperty('--pt-fill', ((semi + 12) / 24 * 100).toFixed(1) + '%');
+    $('hint').textContent = orig ? '' : hint(semi);
+    $('orig').classList.toggle('is-on', orig); $('orig').querySelector('input').checked = orig;
+    $('shift').classList.toggle('is-on', !orig); $('shift').querySelector('input').checked = !orig;
+    $('status').textContent = `Shifting ${src} → MacBook Pro Speakers`;
+  };
+  $('down').addEventListener('click', () => { semi = Math.max(-12, semi - 1); orig = false; draw(); });
+  $('up').addEventListener('click', () => { semi = Math.min(12, semi + 1); orig = false; draw(); });
+  $('orig').querySelector('input').addEventListener('change', () => { orig = true; draw(); });
+  $('shift').querySelector('input').addEventListener('change', () => { orig = false; draw(); });
+  document.querySelectorAll('#src button').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('#src button').forEach((o) => o.setAttribute('aria-pressed', o === b));
+    src = b.dataset.src; $('src').textContent = src;
+    const ic = $('ic');
+    if (b.dataset.ic) { ic.src = b.dataset.ic; ic.hidden = false; } else ic.hidden = true;
+    draw();
+  }));
+  draw();
+})();
+
+// 👏 counter. Every .like button shares one state; they stay hidden unless the counter answers.
+(() => {
+  const API = location.hostname === "gkudva96.github.io" ? "https://pitchtap-stats.pitchtap-app.workers.dev/like" : "http://localhost:8799/like";
+  const SHOW_FROM = 25; // below this the number stays hidden
+  const btns = [...document.querySelectorAll(".like")], labels = [...document.querySelectorAll(".like-label")], counts = [...document.querySelectorAll(".like-count")];
+  let liked = false;
+  try { liked = localStorage.getItem("pitchtap-liked") === "1"; } catch {}
+  const show = (n) => counts.forEach((c) => { c.textContent = n >= SHOW_FROM ? n.toLocaleString("en") + " people clapped for PitchTap" : ""; });
+  const thanks = (text = "Thanks for the clap") => {
+    btns.forEach((b) => b.setAttribute("aria-pressed", "true"));
+    labels.forEach((l) => { l.textContent = l.closest(".nav-clap") ? "Clapped" : text; });
+  };
+  fetch(API).then((r) => (r.ok ? r.json() : Promise.reject())).then((d) => {
+    show(d.likes);
+    if (liked) thanks();
+    btns.forEach((b) => (b.hidden = false));
+    labels.forEach((l) => (l.hidden = false));
+    document.querySelectorAll(".like-link").forEach((a) => (a.hidden = true));
+  }).catch(() => document.querySelectorAll(".like-fallback").forEach((a) => (a.hidden = false))); // counter down: offer the star instead
+  btns.forEach((b) => b.addEventListener("click", () => {
+    if (liked) return;
+    liked = true; thanks();
+    const big = document.querySelector(".clap");
+    big.classList.remove("is-clapping"); void big.offsetWidth; big.classList.add("is-clapping");
+    big.addEventListener("animationend", (e) => { if (e.target === big) big.classList.remove("is-clapping"); }, { once: true });
+    try { localStorage.setItem("pitchtap-liked", "1"); } catch {}
+    fetch(API, { method: "POST" }).then((r) => r.json()).then((d) => show(d.likes)).catch(() => thanks("Thanks! (the counter didn't answer)"));
+  }));
+  // the nav's clap steps aside while the big one is on screen (one button per action on a screen)
+  if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => {
+    document.querySelectorAll(".nav-clap, .like-link").forEach((el) => el.classList.toggle("offstage", e.isIntersecting));
+  }).observe(document.querySelector(".like-actions"));
+})();
+</script>
+</body>
+</html>

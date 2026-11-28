@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="round" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy: PitchTap, the pitch shifter for Mac</title>
+<meta name="description" content="What PitchTap and its website do with your audio, settings and visits: nothing is recorded, saved or sent.">
+<link rel="canonical" href="https://gkudva96.github.io/pitchtap/privacy.html">
+<link rel="icon" type="image/png" href="logo.png">
+<meta name="color-scheme" content="light dark">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<style>
+:root {
+  --p-bg: #f6f5f1; --p-surface: #e9e9e7; --p-ink: #14173a; --p-muted: #60647c;
+  --p-accent: #262966; --p-accent-ink: #f6f5f1; --p-action: #262966; --p-action-ink: #f6f5f1;
+  --font-display: "Outfit", system-ui, sans-serif; --font-text: "Outfit", system-ui, sans-serif;
+  --display-weight: 400; --display-tracking: -0.03em; --display-tracking-xl: -0.04em;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --p-bg: #14173a; --p-surface: #202446; --p-ink: #f6f5f1; --p-muted: #a9abbb; --p-accent: #f5a84d; --p-accent-ink: #14173a; --p-action: #f5a84d; --p-action-ink: #14173a; }
+}
+.nav__logo img { width: 28px; height: 28px; }
+.doc { padding: calc(var(--nav) + var(--s-9)) 0 var(--s-9); }
+.doc h1 { font-size: var(--t-h2); margin: 0 0 var(--s-5); }
+.doc h2 { font-size: var(--t-h3); margin: var(--s-8) 0 var(--s-3); }
+.doc p { max-width: 62ch; margin: 0; }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="./"><img src="logo.png" width="28" height="28" alt="">PitchTap</a>
+    <div class="nav__actions"><a class="btn btn--primary" href="https://github.com/gkudva96/pitchtap/releases/latest/download/PitchTap.zip">Download for Mac</a></div>
+  </div>
+</header>
+<main id="top" class="doc">
+  <div class="wrap">
+    <h1>Privacy</h1>
+    <p class="t-lead">Your audio is changed on your own Mac as it plays. Nothing is recorded, saved or sent anywhere. No account, no tracking.</p>
+    <h2>Your audio</h2>
+    <p>macOS asks for audio recording permission because that's how PitchTap hears the app you choose. The sound is shifted and played straight back, never stored.</p>
+    <h2>Internet use</h2>
+    <p>Only to check for updates, about once a day, and to download one if you install it. Both go through GitHub, which sees basic request details such as your IP address.</p>
+    <h2>Your settings</h2>
+    <p>Your source, pitch and other choices are saved on your Mac and nowhere else.</p>
+    <h2>This website</h2>
+    <p>No cookies or analytics. The site is hosted on GitHub Pages, and GitHub may log visits. The 👏 button sends one request to our own counter on Cloudflare, which, like GitHub, sees your IP address. It stores only the total and, for one day, a one-way code made from your IP address (not the address itself) so a click isn't counted twice. Your browser remembers your click on your device.</p>
+    <p style="margin-top: var(--s-8)"><a class="link" href="./">Back to PitchTap</a></p>
+  </div>
+</main>
+<script type="module" src="assets/motion/motion.js"></script>
+</body>
+</html>
